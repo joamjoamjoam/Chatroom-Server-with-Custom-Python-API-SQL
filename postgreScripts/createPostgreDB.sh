@@ -1,5 +1,5 @@
 # /bin/bash
-source ~/.profile
+source ~/.bashrc
 createdb -p $PGPORT $DB_NAME
 pg_ctl status
 
