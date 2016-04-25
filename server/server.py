@@ -11,7 +11,7 @@ def serverFunctionalCode(connection, client_address):
     choice = '0'
     #setup DB Connection
     try:
-        DBcon = psycopg2.connect("dbname='mydb' user='joamjoamjoam' host='localhost' port='1024'")
+        DBcon = psycopg2.connect("dbname=mydb user=postgres password=cgttewr1 host=127.0.0.1 port=5433")
         cursor = DBcon.cursor()
     except:
         print 'Couldnt connect to database'
