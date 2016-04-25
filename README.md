@@ -11,3 +11,12 @@ pip
 
 Client:
 python
+
+
+
+Server To-do List
+Login DONE
+Schema Diagram
+SQL Conversion
+Custom API Calls
+
