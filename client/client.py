@@ -7,7 +7,7 @@ import time
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Connect the socket to the port where the server is listening
-server_address = ('localhost', 7908)
+server_address = ('107.194.132.45', 7908)
 print >>sys.stderr, 'connecting to %s port %s' % server_address
 authenticationCredentials = ["",""]
 choice = '0'
