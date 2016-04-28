@@ -1,12 +1,11 @@
-DROP TABLE friendlist;
-DROP TABLE chat;
-DROP TABLE message;
+﻿
+
 
 CREATE TABLE "friendlist" (
   "listid" SERIAL PRIMARY KEY
 );
 
-CREATE TABLE "Usr" (
+CREATE TABLE "usr" (
   "login" TEXT PRIMARY KEY,
   "passwd" TEXT NOT NULL,
   "bio" TEXT NOT NULL,
@@ -16,7 +15,7 @@ CREATE TABLE "Usr" (
 
 CREATE INDEX "idx_usr__listid" ON "Usr" ("listid");
 
-ALTER TABLE "Usr" ADD CONSTRAINT "fk_usr__listid" FOREIGN KEY ("listid") REFERENCES "friendlist" ("listid");
+ALTER TABLE "usr" ADD CONSTRAINT "fk_usr__listid" FOREIGN KEY ("listid") REFERENCES "friendlist" ("listid");
 
 CREATE TABLE "chat" (
   "chatid" SERIAL PRIMARY KEY,
