@@ -30,7 +30,7 @@ def serverFunctionalCode(connection, client_address):
                 results = cursor.fetchall()
                 if len(results) == 0:
                     try:
-                        cursor.execute("INSERT INTO usr VALUES ('%s','%s')" % (newName, newPass))
+                        cursor.execute("INSERT INTO usr VALUES ('%s','%s','',0,0)" % (newName, newPass))
                         connection.send('YES')
                         print '%s succesfully registered' % newName
                         done = True
@@ -47,7 +47,7 @@ def serverFunctionalCode(connection, client_address):
 
                 #validate credentials and set authenticated
                 try:
-                    cursor.execute("SELECT password FROM usr WHERE login = '%s'" % tmpUser)
+                    cursor.execute("SELECT passwd FROM usr WHERE login = '%s'" % tmpUser)
                     results = cursor.fetchall()
                 except:
                     print 'error running select query for login'
