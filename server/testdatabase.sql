@@ -1,6 +1,4 @@
 ﻿
-
-
 CREATE TABLE "friendlist" (
   "listid" SERIAL PRIMARY KEY
 );
@@ -13,7 +11,7 @@ CREATE TABLE "usr" (
   "listid" INTEGER NOT NULL
 );
 
-CREATE INDEX "idx_usr__listid" ON "Usr" ("listid");
+CREATE INDEX "idx_usr__listid" ON "usr" ("listid");
 
 ALTER TABLE "usr" ADD CONSTRAINT "fk_usr__listid" FOREIGN KEY ("listid") REFERENCES "friendlist" ("listid");
 
@@ -24,7 +22,7 @@ CREATE TABLE "chat" (
 
 CREATE INDEX "idx_chat__senderlogin" ON "chat" ("senderlogin");
 
-ALTER TABLE "chat" ADD CONSTRAINT "fk_chat__senderlogin" FOREIGN KEY ("senderlogin") REFERENCES "Usr" ("login");
+ALTER TABLE "chat" ADD CONSTRAINT "fk_chat__senderlogin" FOREIGN KEY ("senderlogin") REFERENCES "usr" ("login");
 
 CREATE TABLE "message" (
   "msgid" SERIAL PRIMARY KEY,
@@ -38,4 +36,4 @@ CREATE INDEX "idx_message__senderlogin" ON "message" ("senderlogin");
 
 ALTER TABLE "message" ADD CONSTRAINT "fk_message__chatid" FOREIGN KEY ("chatid") REFERENCES "chat" ("chatid");
 
-ALTER TABLE "message" ADD CONSTRAINT "fk_message__senderlogin" FOREIGN KEY ("senderlogin") REFERENCES "Usr" ("login")
+ALTER TABLE "message" ADD CONSTRAINT "fk_message__senderlogin" FOREIGN KEY ("senderlogin") REFERENCES "usr" ("login")
