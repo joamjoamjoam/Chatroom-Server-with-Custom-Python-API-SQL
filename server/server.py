@@ -30,7 +30,9 @@ def serverFunctionalCode(connection, client_address):
                 results = cursor.fetchall()
                 if len(results) == 0:
                     try:
-                        cursor.execute("INSERT INTO usr VALUES ('%s','%s','',0,0)" % (newName, newPass))
+                        cursor.execute("INSERT INTO friendList VALUES() RETURNING listid")
+                        listID = cursor.fetchone()[0]
+                        cursor.execute("INSERT INTO usr VALUES ('%s','%s','',0,%d)" % (newName, newPass,listID))
                         connection.send('YES')
                         print '%s succesfully registered' % newName
                         done = True
