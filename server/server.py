@@ -37,6 +37,7 @@ def serverFunctionalCode(connection, client_address):
                         cursor.execute("INSERT INTO usr(login,password,bio,friendslist) VALUES ('%s','%s','%s',%d)" % (newName, newPass,bio,listID))
                         connection.send('YES')
                         print '%s succesfully registered' % newName
+                        connection.commit()
                         done = True
                     except psycopg2.Error as e:
                         print ("Error Inserting new user into usr table.")
