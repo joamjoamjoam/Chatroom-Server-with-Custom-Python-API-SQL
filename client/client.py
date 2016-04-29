@@ -3,6 +3,9 @@ import sys
 import getpass
 import os
 import time
+import cPickle as pickle
+import cStringIO as StringIO
+
 # Create a TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -84,7 +87,8 @@ while choice == '0':
     elif choice == '4':
         #view friends list
         pickledString = sock.recv(4096)
-        print pickledString
+        result = pickle.loads(pickledString)
+        print result
         done = raw_input('Enter 0 when done >> ')
         sock.send(done)
         choice = '0'

@@ -3,6 +3,8 @@ import sys
 import thread
 import time
 import psycopg2
+import cPickle as pickle
+import cStringIO as StringIO
 
 connectedUser = ""
 
@@ -119,7 +121,7 @@ def serverFunctionalCode(connection, client_address):
                         friendsListID = cursor.fetchone()[0]
                         cursor.execute("SELECT member FROM usrlist_contains WHERE list_id=%d" %(friendsListID))
                         results = cursor.fetchall()
-                        connection.send('1. %s' % results[0][0])
+                        connection.send(pickle.dumps(results))
                         DBcon.commit()
                     except psycopg2.Error as e:
                         print 'error adding to friendslist'
