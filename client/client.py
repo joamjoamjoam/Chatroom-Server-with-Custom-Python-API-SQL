@@ -59,6 +59,8 @@ while choice == '0':
             print 'Invalid Choice. Please Choose Again'
             choice = '0'
 
+
+choice = '0'
 while choice == '0':
     print '1. Create Chat'
     print '2. View Chats'
