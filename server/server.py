@@ -26,14 +26,15 @@ def serverFunctionalCode(connection, client_address):
             while not done:
                 newName = connection.recv(4096)
                 newPass = connection.recv(4096)
-                cursor.execute("SELECT login FROM usr WHERE login = '%s'" % newName)
+                cursor.execute("SELECT login FROM usr WHERE login ='%s'" % newName)
                 results = cursor.fetchall()
                 if len(results) == 0:
                     try:
-                        cursor.execute("INSERT INTO friendList VALUES() RETURNING listid")
+                        cursor.execute("INSERT INTO usrlist(owner) VALUES('%s') RETURNING listid" % newName)
                         listID = cursor.fetchone()[0]
+			bio = "This is a bio."
                         print 'listID = ', listID
-                        cursor.execute("INSERT INTO usr VALUES ('%s','%s','',0,%d)" % (newName, newPass,listID))
+                        cursor.execute("INSERT INTO usr(login,password,bio,friendslist) VALUES ('%s','%s','%s',%d)" % (newName, newPass,bio,listID))
                         connection.send('YES')
                         print '%s succesfully registered' % newName
                         done = True
