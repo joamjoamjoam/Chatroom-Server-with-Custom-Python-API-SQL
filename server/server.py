@@ -37,6 +37,7 @@ def serverFunctionalCode(connection, client_address):
                         print 'listID = ', listID
                         cursor.execute("INSERT INTO usr(login,password,bio,friendslist) VALUES ('%s','%s','%s',%d)" % (newName, newPass,bio,listID))
                         connection.send('YES')
+                        connectedUser = tmpUser
                         print '%s succesfully registered' % newName
                         DBcon.commit()
                         done = True
