@@ -52,10 +52,11 @@ def serverFunctionalCode(connection, client_address):
 
                 #validate credentials and set authenticated
                 try:
-                    cursor.execute("SELECT passwd FROM usr WHERE login = '%s'" % tmpUser)
+                    cursor.execute("SELECT password FROM usr WHERE login ='%s'" % tmpUser)
                     results = cursor.fetchall()
-                except:
+                except psycopg2.Error as e:
                     print 'error running select query for login'
+                    print e
                 if len(results) > 0 and results[0][0] == tmpPassword:
                     authenticated = True
                     connection.send('YES')
