@@ -88,7 +88,8 @@ while choice == '0':
         #view friends list
         pickledString = sock.recv(4096)
         result = pickle.loads(pickledString)
-        print result
+        for i in range(0,len(result),1):
+            print i+1, '. ', result[[0][i]]
         done = raw_input('Enter 0 when done >> ')
         sock.send(done)
         choice = '0'
