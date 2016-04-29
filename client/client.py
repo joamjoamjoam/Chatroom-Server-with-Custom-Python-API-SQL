@@ -89,7 +89,7 @@ while choice == '0':
         pickledString = sock.recv(4096)
         result = pickle.loads(pickledString)
         for i in range(0,len(result),1):
-            print i+1, '. ', result[[0][i]]
+            print i+1, '. ', result[0][i]
         done = raw_input('Enter 0 when done >> ')
         sock.send(done)
         choice = '0'
