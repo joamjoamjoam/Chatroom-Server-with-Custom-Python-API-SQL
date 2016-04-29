@@ -30,7 +30,7 @@ def serverFunctionalCode(connection, client_address):
                 results = cursor.fetchall()
                 if len(results) == 0:
                     try:
-                        cursor.execute("INSERT INTO usrlist(owner) VALUES('%s') RETURNING listid" % newName)
+                        cursor.execute("INSERT INTO usrlist(owner) VALUES('%s') RETURNING list_id" % newName)
                         listID = cursor.fetchone()[0]
 			bio = "This is a bio."
                         print 'listID = ', listID
