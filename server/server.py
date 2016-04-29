@@ -78,7 +78,7 @@ def serverFunctionalCode(connection, client_address):
         choice = '0'
         while choice == '0':
             choice = connection.recv(4096)
-            if choice = '1':
+            if choice == '1':
                 #create chat
                 print ''
             elif choice == '2':
@@ -90,11 +90,11 @@ def serverFunctionalCode(connection, client_address):
                 userToAdd = connection.recv(4096)
                 results = []
                 try:
-                cursor.execute("SELECT login FROM usr WHERE login ='%s'" % userToAdd)
-                results = cursor.fetchall()
+                    cursor.execute("SELECT login FROM usr WHERE login ='%s'" % userToAdd)
+                    results = cursor.fetchall()
                 except psycopg2.Error as e:
-                print 'error finding user to add to friends list'
-                print e
+                    print 'error finding user to add to friends list'
+                    print e
 
                 if len(results) > 0:
                     # add user
@@ -104,15 +104,15 @@ def serverFunctionalCode(connection, client_address):
                         cursor.execute("INSERT INTO usrlist_contains(list_id,member) VALUES (%d,'%s')" %(friendsListID, userToAdd))
                         DBcon.commit()
                     except psycopg2.Error as e:
-                    print 'error adding to friendslist'
-                    print e
+                        print 'error adding to friendslist'
+                        print e
                 else:
                     print 'user doesn\'t exist'
                     choice = '0'
             elif choice == '4':
                 # view friends list and delete
                 done = False
-                while !done:
+                while not done :
                     try:
                         cursor.execute("SELECT friendslist FROM usr WHERE login='%s'" % connectedUser)
                         friendsListID = cursor.fetchone()[0]
