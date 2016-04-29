@@ -60,6 +60,38 @@ while choice == '0':
             choice = '0'
 
 
+        print '1. Create Chat'
+        print '2. View Chats'
+        print '3. Add to Friends'
+        print '4. View Friends List'
+        print '5. Exit'
+        choice = raw_input('Select an option > ')
+        sock.send(choice)
+
+        if choice == '1':
+            #create chat
+            print ''
+        elif choice == '2':
+            #view chat
+            print ''
+        elif choice == '3':
+            #add to friends
+            userToAdd = raw_input('Enter the user to add >> ')
+            sock.send(userToAdd)
+            choice = '0'
+        elif choice == '4':
+            #view friends list
+            sock.recv(4096)
+            print 'some friends'
+            done = raw_input('Enter 0 when done >> ')
+            sock.send(done)
+            choice = '0'
+            #unpickle string here
+        elif choice == '5':
+            #exit
+            sock.close()
+
+
 
 
 

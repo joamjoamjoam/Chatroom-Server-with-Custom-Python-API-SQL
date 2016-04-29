@@ -4,11 +4,12 @@ import thread
 import time
 import psycopg2
 
-
+connectedUser = ""
 
 def serverFunctionalCode(connection, client_address):
     authenticated = False
     choice = '0'
+    global connectedUser
     #setup DB Connection
     try:
         DBcon = psycopg2.connect("dbname=mydb user=postgres password=cgttewr1 host=127.0.0.1 port=5433")
@@ -59,6 +60,7 @@ def serverFunctionalCode(connection, client_address):
                 print e
             if len(results) > 0 and results[0][0] == tmpPassword:
                 authenticated = True
+                connectedUser = tmpUser
                 connection.send('YES')
             else:
                 connection.send('NO')
@@ -72,8 +74,62 @@ def serverFunctionalCode(connection, client_address):
 
 
     while 1:
-        # menu 2
-        print 'server code here'
+        # menu 2 1. create chat 2.viewChats 3.add to friends list 4. View Friends List 5. exit
+        choice = '0'
+        while choice == '0':
+            choice = connection.recv(4096)
+            if choice = '1':
+                #create chat
+                print ''
+            elif choice == '2':
+                #view chats
+                print ''
+            elif choice == '3':
+                #add to friends list
+                print ''
+                userToAdd = connection.recv(4096)
+                results = []
+                try:
+                cursor.execute("SELECT login FROM usr WHERE login ='%s'" % userToAdd)
+                results = cursor.fetchall()
+                except psycopg2.Error as e:
+                print 'error finding user to add to friends list'
+                print e
+
+                if len(results) > 0:
+                    # add user
+                    try:
+                        cursor.execute("SELECT friendslist FROM usr WHERE login='%s'" % connectedUser)
+                        friendsListID = cursor.fetchone()[0]
+                        cursor.execute("INSERT INTO usrlist_contains(list_id,member) VALUES (%d,'%s')" %(friendsListID, userToAdd))
+                        DBcon.commit()
+                    except psycopg2.Error as e:
+                    print 'error adding to friendslist'
+                    print e
+                else:
+                    print 'user doesn\'t exist'
+                    choice = '0'
+            elif choice == '4':
+                # view friends list and delete
+                done = False
+                while !done:
+                    try:
+                        cursor.execute("SELECT friendslist FROM usr WHERE login='%s'" % connectedUser)
+                        friendsListID = cursor.fetchone()[0]
+                        cursor.execute("SELECT member FROM usrlist_contains WHERE list_id=%d" %(friendsListID))
+                        results = cursor.fetchall()
+                        connection.send(results)
+                        DBcon.commit()
+                    except psycopg2.Error as e:
+                        print 'error adding to friendslist'
+                        print e
+                    if connection.recv(4096) == '0':
+                        done = True
+                choice = '0'
+            elif choice == '5':
+                #exit
+                connection.close()
+                return 0
 
 if __name__=='__main__':
     # Create a TCP/IP socket
