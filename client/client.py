@@ -36,22 +36,22 @@ while choice == '0':
                     #username is taken
                     print('That username is taken. Please select a new one.')
         elif choice == '2':
-            while not authenticated:
-                #strip spaces from username
-                authenticationCredentials[0] = raw_input('login_username:')
-                authenticationCredentials[1] = getpass.getpass()
+            #strip spaces from username
+            authenticationCredentials[0] = raw_input('login_username:')
+            authenticationCredentials[1] = getpass.getpass()
 
-                #check credentials and disconnect if not correct
-                sock.sendto(authenticationCredentials[0], server_address)
-                sock.sendto(authenticationCredentials[1], server_address)
+            #check credentials and disconnect if not correct
+            sock.sendto(authenticationCredentials[0], server_address)
+            sock.sendto(authenticationCredentials[1], server_address)
 
-                authResponse = sock.recv(4096)
+            authResponse = sock.recv(4096)
 
-                if authResponse == 'NO':
-                    print >> sys.stderr, 'Incorrect Credentials or You Are Logged in Somewhere Else'
-                else:
-                    print >> sys.stderr, 'Logged in Succesfully'
-                    authenticated = True
+            if authResponse == 'NO':
+                print >> sys.stderr, 'Incorrect Credentials or You Are Logged in Somewhere Else'
+                choice = '0'
+            else:
+                print >> sys.stderr, 'Logged in Succesfully'
+                authenticated = True
 
         elif choice == '3':
             sock.close()
