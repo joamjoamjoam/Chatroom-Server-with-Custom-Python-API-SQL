@@ -83,8 +83,8 @@ while choice == '0':
         choice = '0'
     elif choice == '4':
         #view friends list
-        sock.recv(4096)
-        print 'some friends'
+        pickledString = sock.recv(4096)
+        print pickledString
         done = raw_input('Enter 0 when done >> ')
         sock.send(done)
         choice = '0'
