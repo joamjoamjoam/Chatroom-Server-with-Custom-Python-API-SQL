@@ -35,7 +35,7 @@ def serverFunctionalCode(connection, client_address):
                     try:
                         cursor.execute("INSERT INTO usrlist(owner) VALUES('%s') RETURNING list_id" % newName)
                         listID = cursor.fetchone()[0]
-			bio = "This is a bio."
+			            bio = "This is a bio."
                         print 'listID = ', listID
                         cursor.execute("INSERT INTO usr(login,password,bio,friendslist) VALUES ('%s','%s','%s',%d)" % (newName, newPass,bio,listID))
                         connection.send('YES')
