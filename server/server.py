@@ -47,22 +47,22 @@ def serverFunctionalCode(connection, client_address):
                     #username is taken
                     connection.send('NO')
         elif choice == '2':
-            while not authenticated:
-                tmpUser = connection.recv(4096)
-                tmpPassword = connection.recv(4096)
+            tmpUser = connection.recv(4096)
+            tmpPassword = connection.recv(4096)
 
-                #validate credentials and set authenticated
-                try:
-                    cursor.execute("SELECT password FROM usr WHERE login ='%s'" % tmpUser)
-                    results = cursor.fetchall()
-                except psycopg2.Error as e:
-                    print 'error running select query for login'
-                    print e
-                if len(results) > 0 and results[0][0] == tmpPassword:
-                    authenticated = True
-                    connection.send('YES')
-                else:
-                    connection.send('NO')
+            #validate credentials and set authenticated
+            try:
+                cursor.execute("SELECT password FROM usr WHERE login ='%s'" % tmpUser)
+                results = cursor.fetchall()
+            except psycopg2.Error as e:
+                print 'error running select query for login'
+                print e
+            if len(results) > 0 and results[0][0] == tmpPassword:
+                authenticated = True
+                connection.send('YES')
+            else:
+                connection.send('NO')
+                choice = '0'
         elif choice == '3':
             connection.close()
             return 0
