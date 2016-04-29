@@ -38,8 +38,10 @@ def serverFunctionalCode(connection, client_address):
                         connection.send('YES')
                         print '%s succesfully registered' % newName
                         done = True
-                    except:
+                    except psycopg2.Error as e:
                         print ("Error Inserting new user into usr table.")
+                        print e
+                        print e.diag.message_detail
                         connection.send('NO')
                 else:
                     #username is taken
