@@ -112,7 +112,6 @@ if __name__=='__main__':
         print '4. View Friends List'
         print '5. Exit'
         choice = raw_input('Select an option > ')
-        sock.send(choice)
 
         if choice == '1':
             #create chat
