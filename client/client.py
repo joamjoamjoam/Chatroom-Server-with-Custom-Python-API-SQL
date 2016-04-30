@@ -27,6 +27,7 @@ def login(user, password):
     sock.send("login")
     #check credentials and disconnect if not correct
     sock.sendto(user, server_address)
+    time.sleep(.3)
     sock.sendto(password, server_address)
 
     authResponse = sock.recv(4096)
