@@ -171,7 +171,7 @@ def createChat(chatname):
 
     try:
         cursor.execute("INSERT INTO chat(chatroom_name,initialsender) VALUES ('%s','%s')" % (chatname, connectedUser))
-        cursor.execute("INSERT INTO chatlist VALUES (%d,'%s')" %(chatname, connectedUser))
+        cursor.execute("INSERT INTO chatlist VALUES ('%s','%s')" %(chatname, connectedUser))
         DBcon.commit()
         print 'Chat created with name', name, ' and initalsender ', connectedUser
         conn.send('YES')
