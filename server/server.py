@@ -9,6 +9,7 @@ import cStringIO as StringIO
 connectedUser = ""
 cursor = ""
 DBcon = ""
+conn = ""
 
 def serverFunctionalCode(connection, client_address):
     authenticated = False
@@ -16,6 +17,8 @@ def serverFunctionalCode(connection, client_address):
     global connectedUser
     global cursor
     global DBcon
+    global conn
+    conn = connection
     #setup DB Connection
     try:
         DBcon = psycopg2.connect("dbname=mydb user=postgres password=cgttewr1 host=127.0.0.1 port=5433")
@@ -28,24 +31,25 @@ def serverFunctionalCode(connection, client_address):
     while 1:
         apiCall = connection.recv(4096)
         if apiCall == 'login':
+            print 'Login request recieved from ', client_address
             login()
         elif 'register':
-            print 'Registering request recieved from %s' % client_address
+            print 'Registering request recieved from ', client_address
             register()
         elif apiCall == 'viewfriendslist':
-            print 'View Friends List request recieved from %s' % client_address
+            print 'View Friends List request recieved from ', client_address
             print 'Connected User is %s' % connectedUser
             viewFriendsList()
         elif apiCall == 'createchat':
-            print 'Create Chat request recieved from %s' % client_address
+            print 'Create Chat request recieved from ', client_address
             print 'Connected User is %s' % connectedUser
             createChat()
         elif apiCall == 'viewchats':
-            print 'View Chats request recieved from %s' % client_address
+            print 'View Chats request recieved from ', client_address
             print 'Connected User is %s' % connectedUser
             viewChats()
         elif apiCall == 'addtofriendslist':
-            print 'Add to Friends List request recieved from %s' % client_address
+            print 'Add to Friends List request recieved from ', client_address
             print 'Connected User is %s' % connectedUser
             userToAdd = connection.recv(4096)
             addUserToFriendsList(userToAdd)
@@ -56,9 +60,10 @@ def register():
     global connectedUser
     global cursor
     global DBcon
+    global conn
 
-    newName = connection.recv(4096)
-    newPass = connection.recv(4096)
+    newName = conn.recv(4096)
+    newPass = conn.recv(4096)
     cursor.execute("SELECT login FROM usr WHERE login ='%s'" % newName)
     results = cursor.fetchall()
     if len(results) == 0:
@@ -68,7 +73,7 @@ def register():
             bio = "This is a bio."
             print 'listID = ', listID
             cursor.execute("INSERT INTO usr(login,password,bio,friendslist) VALUES ('%s','%s','%s',%d)" % (newName, newPass,bio,listID))
-            connection.send('YES')
+            conn.send('YES')
             print '%s succesfully registered' % newName
             DBcon.commit()
             connectedUser = newName
@@ -76,10 +81,10 @@ def register():
         except psycopg2.Error as e:
             print ("Error Inserting new user into usr table.")
             print e
-            connection.send('NO')
+            conn.send('NO')
     else:
         #username is taken
-        connection.send('NO')
+        conn.send('NO')
     connectedUser = newName
 
 
@@ -87,8 +92,9 @@ def login():
     global connectedUser
     global cursor
     global DBcon
-    tmpUser = connection.recv(4096)
-    tmpPassword = connection.recv(4096)
+    global conn
+    tmpUser = conn.recv(4096)
+    tmpPassword = conn.recv(4096)
 
     #validate credentials and set authenticated
     try:
@@ -100,15 +106,16 @@ def login():
     if len(results) > 0 and results[0][0] == tmpPassword:
         authenticated = True
         connectedUser = tmpUser
-        connection.send('YES')
+        conn.send('YES')
     else:
-        connection.send('NO')
+        conn.send('NO')
 
 
 def viewFriendsList():
     global cursor
     global connectedUser
     global DBcon
+    global conn
     done = False
     while not done:
         try:
@@ -116,18 +123,19 @@ def viewFriendsList():
             friendsListID = cursor.fetchone()[0]
             cursor.execute("SELECT member FROM usrlist_contains WHERE list_id=%d" %(friendsListID))
             results = cursor.fetchall()
-            connection.send(pickle.dumps(results))
+            conn.send(pickle.dumps(results))
             DBcon.commit()
         except psycopg2.Error as e:
             print 'error adding to friendslist'
             print e
-        if connection.recv(4096) == '0':
+        if conn.recv(4096) == '0':
             done = True
 
 def addUserToFriendsList(userToAdd):
     global cursor
     global connectedUser
     global DBcon
+    global conn
     results = []
     try:
         cursor.execute("SELECT login FROM usr WHERE login ='%s'" % userToAdd)
@@ -143,21 +151,25 @@ def addUserToFriendsList(userToAdd):
             friendsListID = cursor.fetchone()[0]
             cursor.execute("INSERT INTO usrlist_contains(list_id,member) VALUES (%d,'%s')" %(friendsListID, userToAdd))
             DBcon.commit()
+            conn.send("YES")
         except psycopg2.Error as e:
             print 'error adding to friendslist'
             print e
+            conn.send("NO")
 
 def createChat():
     global cursor
     global connectedUser
     global DBcon
+    global conn
 
 
 
-def viewChat():
+def viewChats():
     global cursor
     global connectedUser
     global DBcon
+    global conn
 
 
 

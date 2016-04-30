@@ -45,6 +45,11 @@ def viewFriendsList():
 
 def addUserToFriendsList(userToAdd):
     sock.send(userToAdd)
+    accepted = sock.recv(4096)
+    if accepted == 'YES':
+        return True
+    else:
+        return False
 
 def createChat():
     global cursor
