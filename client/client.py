@@ -91,7 +91,8 @@ if __name__=='__main__':
     sock.connect(server_address)
     authenticated = False
     choice = '0'
-    while not authenticated and choice == '0':
+    wantsToExit = False
+    while not authenticated and not wantsToExit:
         while not authenticated:
             print '1. Register'
             print '2. Login'
@@ -108,8 +109,8 @@ if __name__=='__main__':
                 authenticated = login(user, password)
             elif choice == '3':
                 disconnect()
+                wantsToExit = True
                 break
-
         choice = '0'
         while choice == '0':
             print '1. Create Chat'
@@ -157,5 +158,6 @@ if __name__=='__main__':
                 authenticated = False
             elif choice == '6':
                 disconnect()
+                wantsToExit = True
                 break
         choice = '0'
