@@ -18,6 +18,7 @@ def serverFunctionalCode(connection, client_address):
     global cursor
     global DBcon
     global conn
+    connection.setAutoCommit(True)
     conn = connection
     #setup DB Connection
     try:
