@@ -173,7 +173,7 @@ def createChat(chatname):
         cursor.execute("INSERT INTO chat(chatroom_name,initialsender) VALUES ('%s','%s')" % (chatname, connectedUser))
         cursor.execute("INSERT INTO chatlist VALUES ('%s','%s')" %(chatname, connectedUser))
         DBcon.commit()
-        print 'Chat created with name', name, ' and initalsender ', connectedUser
+        print 'Chat created with name', chatname, ' and initalsender ', connectedUser
         conn.send('YES')
     except psycopg2.Error as e:
         print 'Error creating chat.'
