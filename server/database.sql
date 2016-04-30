@@ -39,6 +39,7 @@ CREATE TABLE chat(
 	initialsender text,
 	PRIMARY KEY(chat_id),
 	FOREIGN KEY(initialsender) REFERENCES usr(login));
+
 CREATE TABLE chatlist(
         chat_id integer,
         member text,

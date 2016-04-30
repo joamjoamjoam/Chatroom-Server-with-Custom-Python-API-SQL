@@ -51,10 +51,7 @@ def viewFriendsList():
     #view friends list
     pickledString = sock.recv(4096)
     result = pickle.loads(pickledString)
-    for i in range(0,len(result),1):
-        print i+1, '. ', result[i][0]
-    done = raw_input('Enter 0 when done >> ')
-    sock.send(done)
+    return result
 
 def addUserToFriendsList(userToAdd):
     sock.send("addtofriendslist")
@@ -67,17 +64,19 @@ def addUserToFriendsList(userToAdd):
 
 def createChat():
     sock.send('createchat')
-    global cursor
-    global connectedUser
-    global DBcon
+    tmp = sock.recv(4096)
+    if tmp == 'YES':
+        return True
+    else:
+        return False
 
 
 
-def viewChat():
+def viewChats():
     sock.send('viewchats')
-    global cursor
-    global connectedUser
-    global DBcon
+    chatIDs = pickle.loads(sock.recv(4096))
+    return chatIDs
+
 
 if __name__=='__main__':
     # Create a TCP/IP socket
@@ -121,10 +120,18 @@ if __name__=='__main__':
 
             if choice == '1':
                 #create chat
-                print ''
+                createChat()
             elif choice == '2':
                 #view chat
-                print ''
+                done = False
+                chats = viewChats()
+                while not done:
+                    for i in range(0,len(friendsList),1):
+                        print i+1, '. ', friendsList[i][0]
+                    tmp = raw_input('Enter 0 when done >> ')
+                    if tmp == 0:
+                        done = True
+                choice = '0'
             elif choice == '3':
                 #add to friends
                 add = raw_input('User to add >> ')
@@ -132,7 +139,14 @@ if __name__=='__main__':
                 choice = '0'
             elif choice == '4':
                 #view friends list
+                done = False
                 friendsList = viewFriendsList()
+                while not done:
+                    for i in range(0,len(friendsList),1):
+                        print i+1, '. ', friendsList[i][0]
+                    tmp = raw_input('Enter 0 when done >> ')
+                    if tmp == 0:
+                        done = True
                 choice = '0'
             elif choice == '5':
                 logout()

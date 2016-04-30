@@ -126,20 +126,15 @@ def viewFriendsList():
     global connectedUser
     global DBcon
     global conn
-    done = False
-    while not done:
-        try:
-            cursor.execute("SELECT friendslist FROM usr WHERE login='%s'" % connectedUser)
-            friendsListID = cursor.fetchone()[0]
-            cursor.execute("SELECT member FROM usrlist_contains WHERE list_id=%d" %(friendsListID))
-            results = cursor.fetchall()
-            conn.send(pickle.dumps(results))
-            DBcon.commit()
-        except psycopg2.Error as e:
-            print 'error adding to friendslist'
-            print e
-        if conn.recv(4096) == '0':
-            done = True
+    try:
+        cursor.execute("SELECT friendslist FROM usr WHERE login='%s'" % connectedUser)
+        friendsListID = cursor.fetchone()[0]
+        cursor.execute("SELECT member FROM usrlist_contains WHERE list_id=%d" %(friendsListID))
+        results = cursor.fetchall()
+        conn.send(pickle.dumps(results))
+    except psycopg2.Error as e:
+        print 'error viewing friendslist'
+        print e
 
 def addUserToFriendsList(userToAdd):
     global cursor
@@ -173,6 +168,18 @@ def createChat():
     global DBcon
     global conn
 
+    try:
+        cursor.execute("INSERT INTO chat VALUES ('%s') RETURNING chat_id" % connectedUser)
+        chatID = cursor.fetchone()[0]
+        cursor.execute("INSERT INTO chatlist VALUES (%d,%s)" %(chatID, connectedUser))
+        DBcon.commit()
+        print 'Chat created with ID', chatID, ' and initalsender ', connectedUser
+        conn.send('YES')
+    except psycopg2.Error as e:
+        print 'Error creating chat.'
+        print e
+        conn.send('NO')
+
 
 
 def viewChats():
@@ -180,6 +187,15 @@ def viewChats():
     global connectedUser
     global DBcon
     global conn
+    try:
+        cursor.execute("SELECT chat_id FROM chatlist WHERE member='%s'" % connectedUser)
+        results = cursor.fetchall()
+        conn.send(pickle.dumps(results))
+    except psycopg2.Error as e:
+        print 'error viewing friendslist'
+        print e
+
+
 
 
 
