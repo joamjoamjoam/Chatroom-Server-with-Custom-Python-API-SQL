@@ -30,6 +30,7 @@ def serverFunctionalCode(connection, client_address):
 
     while 1:
         apiCall = connection.recv(4096)
+        print apiCall
         if apiCall == 'login':
             print 'Login request recieved from ', client_address
             login()
