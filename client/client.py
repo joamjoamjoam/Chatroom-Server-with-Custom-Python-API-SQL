@@ -107,7 +107,7 @@ if __name__=='__main__':
                 password = raw_input('Password > ')
                 authenticated = login(user, password)
             elif choice == '3':
-                sock.close()
+                disconnect()
 
         choice = '0'
         while choice == '0':
