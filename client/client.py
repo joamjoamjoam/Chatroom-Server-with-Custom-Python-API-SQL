@@ -25,7 +25,6 @@ def register(user, password):
 
 def login(user, password):
     sock.send("login")
-    user = user.split(" ")
     #check credentials and disconnect if not correct
     sock.sendto(user, server_address)
     sock.sendto(password, server_address)
