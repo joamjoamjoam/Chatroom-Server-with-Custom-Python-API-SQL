@@ -7,7 +7,7 @@ import cPickle as pickle
 import cStringIO as StringIO
 
 def register(user, password):
-    sock.send("register")
+    sock.send('register')
     sock.send(user)
     sock.send(password)
     accepted = sock.recv(4096)
