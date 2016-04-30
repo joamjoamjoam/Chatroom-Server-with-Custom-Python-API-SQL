@@ -9,7 +9,6 @@ import cStringIO as StringIO
 sock = ""
 
 def register(user, password):
-    global sock
     sock.send('register')
     sock.send(user)
     time.sleep(.3)
@@ -76,7 +75,6 @@ def viewChat():
     global DBcon
 
 if __name__=='__main__':
-    global sock
     # Create a TCP/IP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -134,7 +132,6 @@ if __name__=='__main__':
             elif choice == '5':
                 logout()
                 authenticated = False
-                choice = '0'
 
             elif choice == '6':
                 sock.close()
