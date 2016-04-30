@@ -75,6 +75,7 @@ def createChat():
 def viewChats():
     sock.send('viewchats')
     chatIDs = pickle.loads(sock.recv(4096))
+
     return chatIDs
 
 
@@ -127,6 +128,7 @@ if __name__=='__main__':
                 #view chat
                 done = False
                 chats = viewChats()
+                print 'chats = ' chats
                 while not done:
                     for i in range(0,len(chats),1):
                         print i+1, '. ', chats[i][0]
