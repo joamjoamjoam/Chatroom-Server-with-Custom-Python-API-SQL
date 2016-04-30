@@ -131,7 +131,7 @@ if __name__=='__main__':
                     for i in range(0,len(friendsList),1):
                         print i+1, '. ', friendsList[i][0]
                     tmp = raw_input('Enter 0 when done >> ')
-                    if tmp == 0:
+                    if tmp == '0':
                         done = True
                 choice = '0'
             elif choice == '3':
@@ -147,7 +147,7 @@ if __name__=='__main__':
                     for i in range(0,len(friendsList),1):
                         print i+1, '. ', friendsList[i][0]
                     tmp = raw_input('Enter 0 when done >> ')
-                    if tmp == 0:
+                    if tmp == '0':
                         done = True
                 choice = '0'
             elif choice == '5':
