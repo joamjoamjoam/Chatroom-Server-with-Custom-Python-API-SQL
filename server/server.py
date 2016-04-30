@@ -190,7 +190,6 @@ def viewChats():
     try:
         cursor.execute("SELECT chat_id FROM chatlist WHERE member='%s'" % connectedUser)
         results = cursor.fetchall()
-        print results
         conn.send(pickle.dumps(results))
     except psycopg2.Error as e:
         print 'error viewing chatlist'
