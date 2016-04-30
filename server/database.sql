@@ -35,7 +35,7 @@ CREATE TABLE usrlist_contains(
 
 
 CREATE TABLE chat(
-	chat_id serial,
+	chatroom_name text,
 	initialsender text,
 	PRIMARY KEY(chat_id),
 	FOREIGN KEY(initialsender) REFERENCES usr(login));

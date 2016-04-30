@@ -43,7 +43,8 @@ def serverFunctionalCode(connection, client_address):
         elif apiCall == 'createchat':
             print 'Create Chat request recieved from ', client_address
             print 'Connected User is %s' % connectedUser
-            createChat()
+            chatname = connection.recv(4096)
+            createChat(chatname)
         elif apiCall == 'viewchats':
             print 'View Chats request recieved from ', client_address
             print 'Connected User is %s' % connectedUser
@@ -162,18 +163,17 @@ def addUserToFriendsList(userToAdd):
             print e
             conn.send("NO")
 
-def createChat():
+def createChat(chatname):
     global cursor
     global connectedUser
     global DBcon
     global conn
 
     try:
-        cursor.execute("INSERT INTO chat(initialsender) VALUES ('%s') RETURNING chat_id" % connectedUser)
-        chatID = cursor.fetchone()[0]
-        cursor.execute("INSERT INTO chatlist VALUES (%d,'%s')" %(chatID, connectedUser))
+        cursor.execute("INSERT INTO chat(chatroom_name,initialsender) VALUES ('%s','%s')" % (chatname, connectedUser))
+        cursor.execute("INSERT INTO chatlist VALUES (%d,'%s')" %(chatname, connectedUser))
         DBcon.commit()
-        print 'Chat created with ID', chatID, ' and initalsender ', connectedUser
+        print 'Chat created with name', name, ' and initalsender ', connectedUser
         conn.send('YES')
     except psycopg2.Error as e:
         print 'Error creating chat.'

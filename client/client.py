@@ -62,12 +62,15 @@ def addUserToFriendsList(userToAdd):
     else:
         return False
 
-def createChat():
+def createChat(chatname):
     sock.send('createchat')
+    time.sleep(.3)
+    sock.send(chatname)
     tmp = sock.recv(4096)
     if tmp == 'YES':
         return True
     else:
+        print 'Room name was taken. Pleas Choose another.'
         return False
 
 
@@ -112,7 +115,7 @@ if __name__=='__main__':
                 wantsToExit = True
                 break
         choice = '0'
-        while choice == '0':
+        while authenticated and choice == '0':
             print '1. Create Chat'
             print '2. View Chats'
             print '3. Add to Friends'
@@ -123,7 +126,8 @@ if __name__=='__main__':
 
             if choice == '1':
                 #create chat
-                if createChat():
+                chatname = raw_input('Please input a chat room name >> ')
+                if createChat(chatname):
                     print 'chat created succesfully'
                 choice = '0'
             elif choice == '2':
