@@ -22,6 +22,8 @@ def register(user, password):
         print('That username is taken. Please select a new one.')
         return False
 
+def logout():
+    sock.send('logout')
 
 def login(user, password):
     sock.send("login")
@@ -86,50 +88,56 @@ if __name__=='__main__':
     sock.connect(server_address)
     authenticated = False
     choice = '0'
+    while not authenticated && choice == '0':
+        while not authenticated:
+            print '1. Register'
+            print '2. Login'
+            print '3. Exit'
+            choice = raw_input('Select an option > ')
 
-    while not authenticated:
-        print '1. Register'
-        print '2. Login'
-        print '3. Exit'
-        choice = raw_input('Select an option > ')
+            if choice == '1':
+                user = raw_input('login_username:')
+                password = getpass.getpass()
+                authenticated = register(user, password)
+            elif choice == '2':
+                user = raw_input('Username > ')
+                password = raw_input('Password > ')
+                authenticated = login(user, password)
+            elif choice == '3':
+                sock.close()
 
-        if choice == '1':
-            user = raw_input('login_username:')
-            password = getpass.getpass()
-            authenticated = register(user, password)
-        elif choice == '2':
-            user = raw_input('Username > ')
-            password = raw_input('Password > ')
-            authenticated = login(user, password)
-        elif choice == '3':
-            sock.close()
+        choice = '0'
+        while choice == '0':
+            print '1. Create Chat'
+            print '2. View Chats'
+            print '3. Add to Friends'
+            print '4. View Friends List'
+            print '5. Logout'
+            print '6. Exit'
+            choice = raw_input('Select an option > ')
 
-    choice = '0'
-    while choice == '0':
-        print '1. Create Chat'
-        print '2. View Chats'
-        print '3. Add to Friends'
-        print '4. View Friends List'
-        print '5. Exit'
-        choice = raw_input('Select an option > ')
+            if choice == '1':
+                #create chat
+                print ''
+            elif choice == '2':
+                #view chat
+                print ''
+            elif choice == '3':
+                #add to friends
+                add = raw_input('User to add >> ')
+                addUserToFriendsList(add)
+                choice = '0'
+            elif choice == '4':
+                #view friends list
+                friendsList = viewFriendsList()
+                choice = '0'
+            elif choice == '5':
+                logout()
+                authenticated = False
+                choice = '0'
 
-        if choice == '1':
-            #create chat
-            print ''
-        elif choice == '2':
-            #view chat
-            print ''
-        elif choice == '3':
-            #add to friends
-            add = raw_input('User to add >> ')
-            addUserToFriendsList(add)
-            choice = '0'
-        elif choice == '4':
-            #view friends list
-            friendsList = viewFriendsList()
-            choice = '0'
-        elif choice == '5':
-            sock.close()
+            elif choice == '6':
+                sock.close()
 
 
 

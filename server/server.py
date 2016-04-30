@@ -54,6 +54,13 @@ def serverFunctionalCode(connection, client_address):
             print 'Connected User is %s' % connectedUser
             userToAdd = connection.recv(4096)
             addUserToFriendsList(userToAdd)
+        elif apiCall == 'logout':
+            print 'Registering request recieved from ', client_address
+            logout()
+        elif apiCall == 'exit':
+            print 'Exit request recieved from ', client_address
+            connection.close()
+            return 0
         else:
             print 'Invalid Call'
 
@@ -111,6 +118,9 @@ def login():
     else:
         conn.send('NO')
 
+def logout():
+    global connectedUser
+    connectedUser = ""
 
 def viewFriendsList():
     global cursor
