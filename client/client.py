@@ -12,6 +12,7 @@ def register(user, password):
     global sock
     sock.send('register')
     sock.send(user)
+    time.sleep(.3)
     sock.send(password)
     accepted = sock.recv(4096)
     if accepted == 'YES':

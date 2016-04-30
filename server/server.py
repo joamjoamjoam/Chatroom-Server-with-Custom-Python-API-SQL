@@ -64,7 +64,6 @@ def register():
     global conn
 
     newName = conn.recv(4096)
-    print newName
     newPass = conn.recv(4096)
     cursor.execute("SELECT login FROM usr WHERE login ='%s'" % newName)
     results = cursor.fetchall()
