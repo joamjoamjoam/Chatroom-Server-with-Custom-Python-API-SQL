@@ -91,7 +91,6 @@ if __name__=='__main__':
         print '2. Login'
         print '3. Exit'
         choice = raw_input('Select an option > ')
-        sock.send(choice)
 
         if choice == '1':
             user = raw_input('login_username:')
