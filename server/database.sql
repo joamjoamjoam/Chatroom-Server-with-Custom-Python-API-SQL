@@ -41,12 +41,11 @@ CREATE TABLE chat(
 	FOREIGN KEY(initialsender) REFERENCES usr(login));
 
 CREATE TABLE chatlist(
-        chat_id integer,
+        chatroom_name text,
         member text,
-        PRIMARY KEY(chat_id,member),
-        FOREIGN KEY(chat_id) REFERENCES chat(chat_id),
+        PRIMARY KEY(chatroom_name,member),
+        FOREIGN KEY(chatroom_name) REFERENCES chat(chatroom_name),
         FOREIGN KEY(member) REFERENCES usr(login));
 
-ALTER SEQUENCE chat_chat_id_seq RESTART 1;
 ALTER SEQUENCE message_msg_id_seq RESTART 1;
 ALTER SEQUENCE usrlist_list_id_seq RESTART 1;
