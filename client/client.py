@@ -6,62 +6,87 @@ import time
 import cPickle as pickle
 import cStringIO as StringIO
 
+def register(user, password):
+    sock.send(user)
+    sock.send(password)
+    accepted = sock.recv(4096)
+    if accepted == 'YES':
+        return True
+    else:
+        #username is taken
+        print('That username is taken. Please select a new one.')
+        return False
+
+
+def login(user, password):
+    user = user.split(" ")
+    #check credentials and disconnect if not correct
+    sock.sendto(user, server_address)
+    sock.sendto(password, server_address)
+
+    authResponse = sock.recv(4096)
+
+    if authResponse == 'NO':
+        print >> sys.stderr, 'Incorrect Credentials or You Are Logged in Somewhere Else'
+        return False
+    else:
+        print >> sys.stderr, 'Logged in Succesfully'
+        return True
+
+
+def viewFriendsList():
+    #view friends list
+    pickledString = sock.recv(4096)
+    result = pickle.loads(pickledString)
+    for i in range(0,len(result),1):
+        print i+1, '. ', result[i][0]
+    done = raw_input('Enter 0 when done >> ')
+    sock.send(done)
+
+def addUserToFriendsList(userToAdd):
+    sock.send(userToAdd)
+
+def createChat():
+    global cursor
+    global connectedUser
+    global DBcon
+
+
+
+def viewChat():
+    global cursor
+    global connectedUser
+    global DBcon
+
 # Create a TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Connect the socket to the port where the server is listening
-server_address = ('107.194.132.45', 7908)
+#server_address = ('107.194.132.45', 7908)
+server_address = ('192.168.1.72', 7908)
 print >>sys.stderr, 'connecting to %s port %s' % server_address
 authenticationCredentials = ["",""]
-choice = '0'
 sock.connect(server_address)
 authenticated = False
+choice = '0'
 
-while choice == '0':
+while not authenticated:
+    print '1. Register'
+    print '2. Login'
+    print '3. Exit'
+    choice = raw_input('Select an option > ')
+    sock.send(choice)
 
-        print '1. Register'
-        print '2. Login'
-        print '3. Exit'
-        choice = raw_input('Select an option > ')
-        sock.send(choice)
-        if choice == '1':
-            choice = '0'
-            done = False
-            while not done:
-                newName = raw_input('Username > ')
-                sock.send(newName)
-                newPass = raw_input('Password > ')
-                sock.send(newPass)
-                accepted = sock.recv(4096)
-                if accepted == 'YES':
-                    done = True
-                else:
-                    #username is taken
-                    print('That username is taken. Please select a new one.')
-        elif choice == '2':
-            #strip spaces from username
-            authenticationCredentials[0] = raw_input('login_username:')
-            authenticationCredentials[1] = getpass.getpass()
-
-            #check credentials and disconnect if not correct
-            sock.sendto(authenticationCredentials[0], server_address)
-            sock.sendto(authenticationCredentials[1], server_address)
-
-            authResponse = sock.recv(4096)
-
-            if authResponse == 'NO':
-                print >> sys.stderr, 'Incorrect Credentials or You Are Logged in Somewhere Else'
-                choice = '0'
-            else:
-                print >> sys.stderr, 'Logged in Succesfully'
-                authenticated = True
-
-        elif choice == '3':
-            sock.close()
-        else:
-            print 'Invalid Choice. Please Choose Again'
-            choice = '0'
-
+    if choice == '1':
+        user = raw_input('login_username:')
+        password = getpass.getpass()
+        authenticated = register(user, password)
+    elif choice == '2':
+        user = raw_input('Username > ')
+        password = raw_input('Password > ')
+        authenticated = login(user, password)
+    elif choice == '3':
+        sock.close()
 
 choice = '0'
 while choice == '0':
@@ -81,25 +106,15 @@ while choice == '0':
         print ''
     elif choice == '3':
         #add to friends
-        userToAdd = raw_input('Enter the user to add >> ')
-        sock.send(userToAdd)
+        add = raw_input('User to add >> ')
+        addUserToFriendsList(add)
         choice = '0'
     elif choice == '4':
         #view friends list
-        pickledString = sock.recv(4096)
-        result = pickle.loads(pickledString)
-        for i in range(0,len(result),1):
-            print i+1, '. ', result[i][0]
-        done = raw_input('Enter 0 when done >> ')
-        sock.send(done)
+        friendsList = viewFriendsList()
         choice = '0'
-        #unpickle string here
     elif choice == '5':
-        #exit
         sock.close()
-
-
-
 
 
 
