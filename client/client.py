@@ -7,6 +7,7 @@ import cPickle as pickle
 import cStringIO as StringIO
 
 def register(user, password):
+    sock.send("register")
     sock.send(user)
     sock.send(password)
     accepted = sock.recv(4096)
@@ -19,6 +20,7 @@ def register(user, password):
 
 
 def login(user, password):
+    sock.send("login")
     user = user.split(" ")
     #check credentials and disconnect if not correct
     sock.sendto(user, server_address)
@@ -35,6 +37,7 @@ def login(user, password):
 
 
 def viewFriendsList():
+    sock.send("viewfriendslist")
     #view friends list
     pickledString = sock.recv(4096)
     result = pickle.loads(pickledString)
@@ -44,6 +47,7 @@ def viewFriendsList():
     sock.send(done)
 
 def addUserToFriendsList(userToAdd):
+    sock.send("addtofriendslist")
     sock.send(userToAdd)
     accepted = sock.recv(4096)
     if accepted == 'YES':
@@ -52,6 +56,7 @@ def addUserToFriendsList(userToAdd):
         return False
 
 def createChat():
+    sock.send('createchat')
     global cursor
     global connectedUser
     global DBcon
@@ -59,6 +64,7 @@ def createChat():
 
 
 def viewChat():
+    sock.send('viewchats')
     global cursor
     global connectedUser
     global DBcon

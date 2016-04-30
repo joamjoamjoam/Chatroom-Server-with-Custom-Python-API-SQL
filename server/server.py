@@ -33,7 +33,7 @@ def serverFunctionalCode(connection, client_address):
         if apiCall == 'login':
             print 'Login request recieved from ', client_address
             login()
-        elif 'register':
+        elif apicall == 'register':
             print 'Registering request recieved from ', client_address
             register()
         elif apiCall == 'viewfriendslist':
