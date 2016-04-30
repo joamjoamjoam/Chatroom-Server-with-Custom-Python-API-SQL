@@ -120,7 +120,9 @@ if __name__=='__main__':
 
             if choice == '1':
                 #create chat
-                createChat()
+                if createChat():
+                    print 'chat created succesfully'
+                choice = '0'
             elif choice == '2':
                 #view chat
                 done = False
