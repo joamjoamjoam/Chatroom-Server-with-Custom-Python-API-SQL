@@ -135,5 +135,4 @@ if __name__=='__main__':
             elif choice == '6':
                 sock.close()
                 print 'Succesfully Disconnected'
-                return 0
         choice = '0'
