@@ -18,11 +18,11 @@ def serverFunctionalCode(connection, client_address):
     global cursor
     global DBcon
     global conn
-    connection.setAutoCommit(True)
     conn = connection
     #setup DB Connection
     try:
         DBcon = psycopg2.connect("dbname=mydb user=postgres password=cgttewr1 host=127.0.0.1 port=5433")
+        DBcon.setAutoCommit(True)
         cursor = DBcon.cursor()
     except:
         print 'Couldnt connect to database'
