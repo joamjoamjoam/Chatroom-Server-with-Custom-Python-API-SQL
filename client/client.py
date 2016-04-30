@@ -88,7 +88,7 @@ if __name__=='__main__':
     sock.connect(server_address)
     authenticated = False
     choice = '0'
-    while not authenticated && choice == '0':
+    while not authenticated and choice == '0':
         while not authenticated:
             print '1. Register'
             print '2. Login'
