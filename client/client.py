@@ -6,7 +6,10 @@ import time
 import cPickle as pickle
 import cStringIO as StringIO
 
+sock = ""
+
 def register(user, password):
+    global sock
     sock.send('register')
     sock.send(user)
     sock.send(password)
@@ -69,65 +72,67 @@ def viewChat():
     global connectedUser
     global DBcon
 
-# Create a TCP/IP socket
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+if __name__=='__main__':
+    global sock
+    # Create a TCP/IP socket
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# Connect the socket to the port where the server is listening
-#server_address = ('107.194.132.45', 7908)
-server_address = ('192.168.1.72', 7908)
-print >>sys.stderr, 'connecting to %s port %s' % server_address
-authenticationCredentials = ["",""]
-sock.connect(server_address)
-authenticated = False
-choice = '0'
+    # Connect the socket to the port where the server is listening
+    #server_address = ('107.194.132.45', 7908)
+    server_address = ('192.168.1.72', 7908)
+    print >>sys.stderr, 'connecting to %s port %s' % server_address
+    authenticationCredentials = ["",""]
+    sock.connect(server_address)
+    authenticated = False
+    choice = '0'
 
-while not authenticated:
-    print '1. Register'
-    print '2. Login'
-    print '3. Exit'
-    choice = raw_input('Select an option > ')
-    sock.send(choice)
+    while not authenticated:
+        print '1. Register'
+        print '2. Login'
+        print '3. Exit'
+        choice = raw_input('Select an option > ')
+        sock.send(choice)
 
-    if choice == '1':
-        user = raw_input('login_username:')
-        password = getpass.getpass()
-        authenticated = register(user, password)
-    elif choice == '2':
-        user = raw_input('Username > ')
-        password = raw_input('Password > ')
-        authenticated = login(user, password)
-    elif choice == '3':
-        sock.close()
+        if choice == '1':
+            user = raw_input('login_username:')
+            password = getpass.getpass()
+            authenticated = register(user, password)
+        elif choice == '2':
+            user = raw_input('Username > ')
+            password = raw_input('Password > ')
+            authenticated = login(user, password)
+        elif choice == '3':
+            sock.close()
 
-choice = '0'
-while choice == '0':
-    print '1. Create Chat'
-    print '2. View Chats'
-    print '3. Add to Friends'
-    print '4. View Friends List'
-    print '5. Exit'
-    choice = raw_input('Select an option > ')
-    sock.send(choice)
+    choice = '0'
+    while choice == '0':
+        print '1. Create Chat'
+        print '2. View Chats'
+        print '3. Add to Friends'
+        print '4. View Friends List'
+        print '5. Exit'
+        choice = raw_input('Select an option > ')
+        sock.send(choice)
 
-    if choice == '1':
-        #create chat
-        print ''
-    elif choice == '2':
-        #view chat
-        print ''
-    elif choice == '3':
-        #add to friends
-        add = raw_input('User to add >> ')
-        addUserToFriendsList(add)
-        choice = '0'
-    elif choice == '4':
-        #view friends list
-        friendsList = viewFriendsList()
-        choice = '0'
-    elif choice == '5':
-        sock.close()
+        if choice == '1':
+            #create chat
+            print ''
+        elif choice == '2':
+            #view chat
+            print ''
+        elif choice == '3':
+            #add to friends
+            add = raw_input('User to add >> ')
+            addUserToFriendsList(add)
+            choice = '0'
+        elif choice == '4':
+            #view friends list
+            friendsList = viewFriendsList()
+            choice = '0'
+        elif choice == '5':
+            sock.close()
 
 
 
-sock.close()
-print 'Succesfully Disconnected'
+    sock.close()
+    print 'Succesfully Disconnected'
