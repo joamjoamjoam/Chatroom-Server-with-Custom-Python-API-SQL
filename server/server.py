@@ -169,7 +169,7 @@ def createChat():
     global conn
 
     try:
-        cursor.execute("INSERT INTO chat VALUES ('%s') RETURNING chat_id" % connectedUser)
+        cursor.execute("INSERT INTO chat(initialsender) VALUES ('%s') RETURNING chat_id" % connectedUser)
         chatID = cursor.fetchone()[0]
         cursor.execute("INSERT INTO chatlist VALUES (%d,%s)" %(chatID, connectedUser))
         DBcon.commit()
@@ -192,7 +192,7 @@ def viewChats():
         results = cursor.fetchall()
         conn.send(pickle.dumps(results))
     except psycopg2.Error as e:
-        print 'error viewing friendslist'
+        print 'error viewing chatlist'
         print e
 
 
