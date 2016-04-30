@@ -128,8 +128,8 @@ if __name__=='__main__':
                 done = False
                 chats = viewChats()
                 while not done:
-                    for i in range(0,len(friendsList),1):
-                        print i+1, '. ', friendsList[i][0]
+                    for i in range(0,len(chats),1):
+                        print i+1, '. ', chats[i][0]
                     tmp = raw_input('Enter 0 when done >> ')
                     if tmp == '0':
                         done = True
