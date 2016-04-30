@@ -93,7 +93,7 @@ if __name__=='__main__':
     choice = '0'
     wantsToExit = False
     while not authenticated and not wantsToExit:
-        while not authenticated:
+        while not authenticated or wantsToExit:
             print '1. Register'
             print '2. Login'
             print '3. Exit'
