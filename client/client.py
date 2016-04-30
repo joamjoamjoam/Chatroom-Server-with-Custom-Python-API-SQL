@@ -24,6 +24,11 @@ def register(user, password):
 def logout():
     sock.send('logout')
 
+def disconnect():
+    sock.send('exit')
+    sock.close()
+    print 'Succesfully Disconnected'
+
 def login(user, password):
     sock.send("login")
     #check credentials and disconnect if not correct
@@ -133,6 +138,5 @@ if __name__=='__main__':
                 logout()
                 authenticated = False
             elif choice == '6':
-                sock.close()
-                print 'Succesfully Disconnected'
+                disconnect()
         choice = '0'
