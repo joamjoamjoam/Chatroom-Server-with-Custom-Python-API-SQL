@@ -108,6 +108,7 @@ if __name__=='__main__':
                 authenticated = login(user, password)
             elif choice == '3':
                 disconnect()
+                break
 
         choice = '0'
         while choice == '0':
@@ -157,4 +158,4 @@ if __name__=='__main__':
                 authenticated = False
             elif choice == '6':
                 disconnect()
-        choice = '0'
+                break
