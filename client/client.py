@@ -132,11 +132,8 @@ if __name__=='__main__':
             elif choice == '5':
                 logout()
                 authenticated = False
-
             elif choice == '6':
                 sock.close()
-
-
-
-    sock.close()
-    print 'Succesfully Disconnected'
+                print 'Succesfully Disconnected'
+                return 0
+        choice = '0'
