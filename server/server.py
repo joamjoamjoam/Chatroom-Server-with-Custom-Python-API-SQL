@@ -189,7 +189,7 @@ def viewChats():
     global DBcon
     global conn
     try:
-        cursor.execute("SELECT chat_id FROM chatlist WHERE member='%s'" % connectedUser)
+        cursor.execute("SELECT chatroom_name FROM chatlist WHERE member='%s'" % connectedUser)
         results = cursor.fetchall()
         conn.send(pickle.dumps(results))
     except psycopg2.Error as e:
