@@ -218,7 +218,14 @@ def deleteuser(user):
 
             cursor.execute("DELETE FROM chatlist WHERE member='%s'" % connectedUser)
             cursor.execute("DELETE FROM message WHERE sender='%s'" % connectedUser)
-            cursor.execute("DELETE FROM usr WHERE login='%s'" % connectedUser)
+            cursor.execute("SELECT chatroom_name FROM chat WHERE initialsender='%s'" % connectedUser)
+            results = cursor.fetchall()
+            # delete all from chatslist where usr is initial sender
+            for tmp in results:
+                cursor.execute("DELETE FROM chatlist WHERE chatroom_name='%s'" % results[0][0])
+
+
+            cursor.execute("DELETE FROM chat WHERE login='%s'" % connectedUser)
             cursor.execute("SELECT list_id FROM usrlist WHERE owner='%s'" % connectedUser)
             results = cursor.fetchall()
             listID = results[0][0]
