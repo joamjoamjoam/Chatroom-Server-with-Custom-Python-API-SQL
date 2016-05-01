@@ -215,7 +215,7 @@ def deleteuser(user):
     global conn
     if user == connectedUser:
         try:
-            cursor.execute("DELETE FROM usr WHERE login='%s'" % connectedUser)
+
             cursor.execute("DELETE FROM chatlist WHERE login='%s'" % connectedUser)
             cursor.execute("DELETE FROM message WHERE sender='%s'" % connectedUser)
             cursor.execute("DELETE FROM usr WHERE login='%s'" % connectedUser)
@@ -225,10 +225,11 @@ def deleteuser(user):
             cursor.execute("DELETE FROM usrlist_contains WHERE list_id=%d" % listID)
             cursor.execute("DELETE FROM usrlist_contains WHERE member='%s'" % connectedUser)
             cursor.execute("DELETE FROM usrlist WHERE owner='%s'" % connectedUser)
+            cursor.execute("DELETE FROM usr WHERE login='%s'" % connectedUser)
             time.sleep(.3)
             conn.send('YES')
         except psycopg2.Error as e:
-            print 'error viewing chatlist'
+            print 'error Deleting User'
             print e
             conn.send('NO')
     else:
