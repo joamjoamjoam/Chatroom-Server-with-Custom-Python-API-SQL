@@ -96,7 +96,7 @@ def joinChat(chatname):
     time.sleep(.3)
     sock.send(chatname)
 
-    if sock.recv(4096):
+    if sock.recv(4096) == 'YES':
         return True
     else:
         return False
