@@ -15,7 +15,7 @@ conn = ""
 #edit profiles
 #edit/ delete messages
 #edit/delete chats
-#delete user
+#join chat
 
 def serverFunctionalCode(connection, client_address):
     authenticated = False
@@ -68,6 +68,10 @@ def serverFunctionalCode(connection, client_address):
             print 'Delete User request request recieved from ', client_address
             user = connection.recv(4096)
             deleteuser(user)
+        elif apiCall == 'joinchat':
+            print 'join chat request request recieved from ', client_address
+            chatname = connection.recv(4096)
+            joinChat(chatname)
         elif apiCall == 'exit':
             print 'Exit request recieved from ', client_address
             connection.close()
@@ -243,6 +247,26 @@ def deleteuser(user):
         print 'trying to delete other user'
         conn.send('NO')
 
+def joinChat(chatname):
+    global cursor
+    global connectedUser
+    global DBcon
+    global conn
+    try:
+        cursor.execute("SELECT chatroom_name FROM chat WHERE chatroom_name='%s'" % chatname)
+        results = cursor.fetchall()
+        if results[0][0] == chatname:
+            cursor.execute("INSERT INTO chatlist VALUES('%s','%s')" % (chatname, connectedUser))
+            print 'Joined Succesufully'
+            conn.send('YES')
+        else:
+            print 'no room with that name'
+            conn.send('NO')
+
+    except psycopg2.Error as e:
+        print 'error viewing chatlist'
+        print e
+        conn.send('NO')
 
 
 if __name__=='__main__':

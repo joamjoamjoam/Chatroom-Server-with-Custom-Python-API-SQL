@@ -91,6 +91,16 @@ def deleteUser(userToDelete):
     else:
         return False
 
+def joinChat(chatname):
+    sock.send('joinchat')
+    time.sleep(.3)
+    sock.send(chatname)
+
+    if sock.recv(4096):
+        return True
+    else:
+        return False
+
 if __name__=='__main__':
     # Create a TCP/IP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -130,9 +140,10 @@ if __name__=='__main__':
             print '2. View Chats'
             print '3. Add to Friends'
             print '4. View Friends List'
-            print '5. Logout'
-            print '6. Delete User'
-            print '7. Exit'
+            print '5. Join Chat'
+            print '6. Logout'
+            print '7. Delete User'
+            print '8. Exit'
             choice = raw_input('Select an option > ')
 
             if choice == '1':
@@ -171,17 +182,25 @@ if __name__=='__main__':
                     if tmp == '0':
                         done = True
                 choice = '0'
-            elif choice == '5':
+            elif choice == '3':
+                #join chat
+                chatname = raw_input('Chat to Join >> ')
+                if joinChat(add):
+                    print 'Chat %s Joined' % chatname
+                else:
+                    print 'No Chat with that name'
+                choice = '0'
+            elif choice == '6':
                 logout()
                 authenticated = False
-            elif choice == '6':
+            elif choice == '7':
                 if deleteUser(user):
                     authenticated = False
                     print 'User Was Deleted'
                 else:
                     print 'You can only delete the currently logged in user'
                     choice == '0'
-            elif choice == '7':
+            elif choice == '8':
                 disconnect()
                 wantsToExit = True
                 break
