@@ -174,7 +174,7 @@ def addUserToFriendsList(userToAdd):
             print e
             conn.send("NO")
     else:
-        sock.send('NO')
+        conn.send('NO')
 
 def createChat(chatname):
     global cursor
