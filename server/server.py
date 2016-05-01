@@ -216,7 +216,7 @@ def deleteuser(user):
     if user == connectedUser:
         try:
 
-            cursor.execute("DELETE FROM chatlist WHERE login='%s'" % connectedUser)
+            cursor.execute("DELETE FROM chatlist WHERE member='%s'" % connectedUser)
             cursor.execute("DELETE FROM message WHERE sender='%s'" % connectedUser)
             cursor.execute("DELETE FROM usr WHERE login='%s'" % connectedUser)
             cursor.execute("SELECT list_id FROM usrlist WHERE owner='%s'" % connectedUser)
