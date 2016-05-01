@@ -255,7 +255,7 @@ def joinChat(chatname):
     try:
         cursor.execute("SELECT chatroom_name FROM chat WHERE chatroom_name='%s'" % chatname)
         results = cursor.fetchall()
-        if results[0][0] == chatname:
+        if len(results) > 0 and results[0][0] == chatname:
             cursor.execute("INSERT INTO chatlist VALUES('%s','%s')" % (chatname, connectedUser))
             print 'Joined Succesufully'
             conn.send('YES')
