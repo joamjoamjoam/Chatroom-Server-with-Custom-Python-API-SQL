@@ -180,6 +180,7 @@ if __name__=='__main__':
                     print 'User Was Deleted'
                 else:
                     print 'You can only delete the currently logged in user'
+                    choice == '0'
             elif choice == '7':
                 disconnect()
                 wantsToExit = True
