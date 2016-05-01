@@ -82,6 +82,7 @@ def viewChats():
     return chatIDs
 
 def deleteUser(userToDelete):
+    sock.send('deleteuser')
     sock.send(userToDelete)
     response = sock.recv(4096)
 
