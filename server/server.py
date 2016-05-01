@@ -173,6 +173,8 @@ def addUserToFriendsList(userToAdd):
             print 'error adding to friendslist'
             print e
             conn.send("NO")
+    else:
+        sock.send('NO')
 
 def createChat(chatname):
     global cursor
