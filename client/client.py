@@ -185,7 +185,7 @@ if __name__=='__main__':
             elif choice == '5':
                 #join chat
                 chatname = raw_input('Chat to Join >> ')
-                if joinChat(add):
+                if joinChat(chatname):
                     print 'Chat %s Joined' % chatname
                 else:
                     print 'No Chat with that name'
