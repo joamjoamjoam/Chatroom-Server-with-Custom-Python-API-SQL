@@ -182,7 +182,7 @@ if __name__=='__main__':
                     if tmp == '0':
                         done = True
                 choice = '0'
-            elif choice == '3':
+            elif choice == '5':
                 #join chat
                 chatname = raw_input('Chat to Join >> ')
                 if joinChat(add):
