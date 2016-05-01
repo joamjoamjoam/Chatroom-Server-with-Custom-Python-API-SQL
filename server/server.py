@@ -11,6 +11,12 @@ cursor = ""
 DBcon = ""
 conn = ""
 
+#create messages and get messages for chat
+#edit profiles
+#edit/ delete messages
+#edit/delete chats
+#delete user
+
 def serverFunctionalCode(connection, client_address):
     authenticated = False
     choice = '0'
@@ -58,6 +64,10 @@ def serverFunctionalCode(connection, client_address):
         elif apiCall == 'logout':
             print 'Logout request recieved from ', client_address
             logout()
+        elif apiCall == 'deleteuser':
+            print 'Delete User request request recieved from ', client_address
+            user = connection.recv(4096)
+            deleteuser(user)
         elif apiCall == 'exit':
             print 'Exit request recieved from ', client_address
             connection.close()
@@ -196,7 +206,32 @@ def viewChats():
         print 'error viewing chatlist'
         print e
 
-
+def deleteuser(user):
+    global cursor
+    global connectedUser
+    global DBcon
+    global conn
+    if user == connectedUser:
+        try:
+            cursor.execute("DELETE FROM usr WHERE login='%s'" % connectedUser)
+            cursor.execute("DELETE FROM chatlist WHERE login='%s'" % connectedUser)
+            cursor.execute("DELETE FROM message WHERE sender='%s'" % connectedUser)
+            cursor.execute("DELETE FROM usr WHERE login='%s'" % connectedUser)
+            cursor.execute("SELECT list_id FROM usrlist WHERE owner='%s'" % connectedUser)
+            results = cursor.fetchall()
+            listID = results[0][0]
+            cursor.execute("DELETE FROM usrlist_contains WHERE list_id=%d" % listID)
+            cursor.execute("DELETE FROM usrlist_contains WHERE member='%s'" % connectedUser)
+            cursor.execute("DELETE FROM usrlist WHERE owner='%s'" % connectedUser)
+            time.sleep(.3)
+            conn.send('YES')
+        except psycopg2.Error as e:
+            print 'error viewing chatlist'
+            print e
+            conn.send('NO')
+    else:
+        print 'trying to delete other user'
+        conn.send('NO')
 
 
 

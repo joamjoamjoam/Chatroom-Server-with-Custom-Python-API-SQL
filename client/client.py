@@ -81,6 +81,14 @@ def viewChats():
 
     return chatIDs
 
+def deleteUser(userToDelete):
+    sock.send(userToDelete)
+    response = sock.recv(4096)
+
+    if response == 'YES':
+        return True
+    else:
+        return False
 
 if __name__=='__main__':
     # Create a TCP/IP socket
@@ -106,6 +114,7 @@ if __name__=='__main__':
                 user = raw_input('login_username:')
                 password = getpass.getpass()
                 authenticated = register(user, password)
+                currentUser = user
             elif choice == '2':
                 user = raw_input('Username > ')
                 password = raw_input('Password > ')
@@ -121,7 +130,8 @@ if __name__=='__main__':
             print '3. Add to Friends'
             print '4. View Friends List'
             print '5. Logout'
-            print '6. Exit'
+            print '6. Delete User'
+            print '7. Exit'
             choice = raw_input('Select an option > ')
 
             if choice == '1':
@@ -161,6 +171,12 @@ if __name__=='__main__':
                 logout()
                 authenticated = False
             elif choice == '6':
+                if deleteUser(user):
+                    authenticated = False
+                    print 'User Was Deleted'
+                else:
+                    print 'You can only delete the currently logged in user'
+            elif choice == '7':
                 disconnect()
                 wantsToExit = True
                 break
