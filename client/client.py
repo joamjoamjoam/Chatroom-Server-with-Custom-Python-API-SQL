@@ -155,7 +155,10 @@ if __name__=='__main__':
             elif choice == '3':
                 #add to friends
                 add = raw_input('User to add >> ')
-                addUserToFriendsList(add)
+                if addUserToFriendsList(add):
+                    print 'User Added'
+                else:
+                    print 'No User with that name.'
                 choice = '0'
             elif choice == '4':
                 #view friends list
