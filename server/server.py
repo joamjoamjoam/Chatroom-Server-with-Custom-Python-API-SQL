@@ -216,23 +216,23 @@ def deleteuser(user):
     if user == connectedUser:
         try:
 
-            cursor.execute("DELETE FROM chatlist WHERE member='%s' CASCADE" % connectedUser)
-            cursor.execute("DELETE FROM message WHERE sender='%s' CASCADE" % connectedUser)
+            cursor.execute("DELETE FROM chatlist WHERE member='%s'" % connectedUser)
+            cursor.execute("DELETE FROM message WHERE sender='%s'" % connectedUser)
             cursor.execute("SELECT chatroom_name FROM chat WHERE initialsender='%s'" % connectedUser)
             results = cursor.fetchall()
             # delete all from chatslist where usr is initial sender
             for tmp in results:
-                cursor.execute("DELETE FROM chatlist WHERE chatroom_name='%s' CASCADE" % results[0][0])
+                cursor.execute("DELETE FROM chatlist WHERE chatroom_name='%s'" % results[0][0])
 
 
-            cursor.execute("DELETE FROM chat WHERE initialsender='%s' CASCADE" % connectedUser)
-            cursor.execute("SELECT list_id FROM usrlist WHERE owner='%s' CASCADE" % connectedUser)
+            cursor.execute("DELETE FROM chat WHERE initialsender='%s'" % connectedUser)
+            cursor.execute("SELECT list_id FROM usrlist WHERE owner='%s'" % connectedUser)
             results = cursor.fetchall()
             listID = results[0][0]
-            cursor.execute("DELETE FROM usrlist_contains WHERE list_id=%d CASCADE" % listID)
-            cursor.execute("DELETE FROM usrlist_contains WHERE member='%s' CASCADE" % connectedUser)
-            cursor.execute("DELETE FROM usrlist WHERE owner='%s' CASCADE" % connectedUser)
-            cursor.execute("DELETE FROM usr WHERE login='%s' CASCADE" % connectedUser)
+            cursor.execute("DELETE FROM usr WHERE login='%s'" % connectedUser)
+            cursor.execute("DELETE FROM usrlist_contains WHERE list_id=%d" % listID)
+            cursor.execute("DELETE FROM usrlist_contains WHERE member='%s'" % connectedUser)
+            cursor.execute("DELETE FROM usrlist WHERE owner='%s'" % connectedUser)
             time.sleep(.3)
             conn.send('YES')
         except psycopg2.Error as e:
