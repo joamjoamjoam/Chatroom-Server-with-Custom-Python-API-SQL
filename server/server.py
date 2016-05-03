@@ -15,7 +15,6 @@ conn = ""
 #edit profiles
 #edit/ delete messages
 #edit/delete chats
-#join chat
 
 def serverFunctionalCode(connection, client_address):
     authenticated = False
