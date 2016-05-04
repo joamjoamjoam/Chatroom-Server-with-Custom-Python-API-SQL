@@ -71,6 +71,10 @@ def serverFunctionalCode(connection, client_address):
             print 'join chat request request recieved from ', client_address
             chatname = connection.recv(4096)
             joinChat(chatname)
+        elif apiCall == 'chatforname':
+            print 'chatforname request request recieved from ', client_address
+            chatname = connection.recv(4096)
+            chatForName(chatname)
         elif apiCall == 'exit':
             print 'Exit request recieved from ', client_address
             connection.close()
@@ -266,6 +270,26 @@ def joinChat(chatname):
         print 'error viewing chatlist'
         print e
         conn.send('NO')
+
+def chatForName(chatname):
+    global cursor
+    global connectedUser
+    global DBcon
+    global conn
+    results = []
+    try:
+        cursor.execute("SELECT * FROM message WHERE chatroom_name='%s'" % chatname)
+        results = cursor.fetchall()
+        if len(results) > 0 and results[0][0] == chatname:
+            conn.send(pickle.dumps(results))
+        else:
+            print 'no room with that name'
+            conn.send(pickle.dumps(results))
+
+    except psycopg2.Error as e:
+        print 'error getting chatforname'
+        print e
+        conn.send(pickle.dumps(results))
 
 
 if __name__=='__main__':

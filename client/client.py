@@ -101,13 +101,22 @@ def joinChat(chatname):
     else:
         return False
 
+def chatForName(chatname):
+    sock.send('chatforname')
+    time.sleep(.3)
+    sock.send(chatname)
+
+    results = pickle.loads(sock.recv(4096))
+
+    return results
+
 if __name__=='__main__':
     # Create a TCP/IP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     # Connect the socket to the port where the server is listening
-    server_address = ('107.194.132.45', 7908)
-    #server_address = ('192.168.1.72', 7908)
+    #server_address = ('107.194.132.45', 7908)
+    server_address = ('192.168.1.72', 7908)
     print >>sys.stderr, 'connecting to %s port %s' % server_address
     authenticationCredentials = ["",""]
     sock.connect(server_address)
@@ -162,6 +171,11 @@ if __name__=='__main__':
                     tmp = raw_input('Enter 0 when done >> ')
                     if tmp == '0':
                         done = True
+                    elif int(float(tmp)) > 0 and int(float(tmp)) < len(chats):
+                        messages = chatForName(chats[int(float(tmp)) - 1][0])
+                        for i in range(0,len(messages),1):
+                            print i+1, '. ', messages[i][0]
+                    tmp = raw_input('Enter 0 when done or 1 to create message >> ')
                 choice = '0'
             elif choice == '3':
                 #add to friends
