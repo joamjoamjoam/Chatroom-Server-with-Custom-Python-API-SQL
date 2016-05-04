@@ -192,7 +192,7 @@ if __name__=='__main__':
                                 print i+1, '. ', messages[i][1], messages[i][3], messages[i][2]
                             tmp = raw_input('Enter 0 when done or 1 to create message >> ')
                             if tmp == '0':
-                                done = True
+                                done2 = True
                             else:
                                 text = raw_input('message text >> ')
                                 createMessage(text,chats[int(float(tmp)) -1][0])
