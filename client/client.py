@@ -188,7 +188,6 @@ if __name__=='__main__':
 
                         while not done2:
                             messages = chatForName(chats[int(float(tmp)) - 1][0])
-                            print messages
                             for i in range(0,len(messages),1):
                                 print i+1, '. ', messages[i][1], messages[i][3], messages[i][2]
                             tmp = raw_input('Enter 0 when done or 1 to create message >> ')
