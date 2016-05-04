@@ -179,6 +179,8 @@ if __name__=='__main__':
                 done2 = False
                 chats = viewChats()
                 while not done:
+                    done = False
+                    done2 = False
                     for i in range(0,len(chats),1):
                         print i+1, '. ', chats[i][0]
                     tmp = raw_input('Enter 0 when done >> ')
