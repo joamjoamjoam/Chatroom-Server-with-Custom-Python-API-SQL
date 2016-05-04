@@ -25,7 +25,7 @@ CREATE TABLE message(
 	sender text,
 	chatroom_name text,
 	PRIMARY KEY(msg_id),
-	FOREIGN KEY(sender) REFERENCES usr(login)
+	FOREIGN KEY(sender) REFERENCES usr(login),
 	FOREIGN KEY(chatroom_name) REFERENCES chat(chatroom_name));
 
 CREATE TABLE usrlist_contains(
