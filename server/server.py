@@ -312,7 +312,7 @@ def chatForName(chatname):
     try:
         cursor.execute("SELECT * FROM message WHERE chatroom_name='%s'" % chatname)
         results = cursor.fetchall()
-        if len(results) > 0 and results[0][0] == chatname:
+        if len(results) > 0:
             conn.send(pickle.dumps(results))
         else:
             print 'no room with that name'
