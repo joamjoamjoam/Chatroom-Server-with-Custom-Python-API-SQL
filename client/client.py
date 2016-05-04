@@ -110,6 +110,18 @@ def chatForName(chatname):
 
     return results
 
+
+def createMessage(text,chatname)
+    sock.send('createmessage')
+    time.sleep(.3)
+    sock.send(text)
+    sock.send(chatname)
+
+    if sock.recv(4096) == 'YES':
+        return True
+    else:
+        return False
+
 if __name__=='__main__':
     # Create a TCP/IP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -172,10 +184,18 @@ if __name__=='__main__':
                     if tmp == '0':
                         done = True
                     elif int(float(tmp)) > 0 and int(float(tmp)) < len(chats):
-                        messages = chatForName(chats[int(float(tmp)) - 1][0])
-                        for i in range(0,len(messages),1):
-                            print i+1, '. ', messages[i][0]
-                    tmp = raw_input('Enter 0 when done or 1 to create message >> ')
+
+                        while not done2:
+                            messages = chatForName(chats[int(float(tmp)) - 1][0])
+                            print messages
+                            for i in range(0,len(messages),1):
+                                print i+1, '. ', messages[i][0]
+                            tmp = raw_input('Enter 0 when done or 1 to create message >> ')
+                            if tmp == '0':
+                                done = True
+                            else:
+                                text = raw_input('message text >> ')
+                                createMessage(text,chats[int(float(tmp)) -1])
                 choice = '0'
             elif choice == '3':
                 #add to friends

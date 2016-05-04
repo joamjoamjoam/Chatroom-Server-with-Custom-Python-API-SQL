@@ -4,6 +4,7 @@ import thread
 import time
 import psycopg2
 import cPickle as pickle
+import datetime
 import cStringIO as StringIO
 
 connectedUser = ""
@@ -75,12 +76,43 @@ def serverFunctionalCode(connection, client_address):
             print 'chatforname request request recieved from ', client_address
             chatname = connection.recv(4096)
             chatForName(chatname)
+        elif apiCall == 'createmessage':
+            print 'createmessage request request recieved from ', client_address
+            sender = connection.recv(4096)
+            chatname = connection.recv(4096)
+            createMessage(text,chatname)
         elif apiCall == 'exit':
             print 'Exit request recieved from ', client_address
             connection.close()
             return 0
         else:
             print 'Invalid Call'
+
+def createMessage(text, chatname):
+
+    global cursor
+    global connectedUser
+    global DBcon
+    global conn
+    timestamp = datetime.datetime.now()
+    try:
+        tmp = cursor.mogrify("INSERT INTO message(msg_text, msg_ts, sender, chatroom_name) VALUES('%s','%s',,'%s')" % (text,timestamp,connectedUser,chatname))
+        cursor.execute("SELECT chatroom_name FROM chat WHERE chatroom_name='%s'" % chatname)
+        results = cursor.fetchall()
+        if len(results) > 0 and results[0][0] == chatname:
+            cursor.execute(tmp)
+            print 'Message Created Succesufully'
+            conn.send('YES')
+        else:
+            print 'no room with that name'
+            conn.send('NO')
+
+    except psycopg2.Error as e:
+        print 'error creating message'
+        print e
+        conn.send('NO')
+
+
 
 def register():
     global connectedUser
