@@ -184,7 +184,7 @@ if __name__=='__main__':
                     tmp = raw_input('Enter 0 when done >> ')
                     if tmp == '0':
                         done = True
-                    elif int(float(tmp)) > 0 and int(float(tmp)) < len(chats):
+                    elif int(float(tmp)) > 0 and int(float(tmp)) <= len(chats):
 
                         while not done2:
                             messages = chatForName(chats[int(float(tmp)) - 1][0])
@@ -196,7 +196,7 @@ if __name__=='__main__':
                                 done = True
                             else:
                                 text = raw_input('message text >> ')
-                                createMessage(text,chats[int(float(tmp)) -1])
+                                createMessage(text,chats[int(float(tmp)) -1][0])
                 choice = '0'
             elif choice == '3':
                 #add to friends

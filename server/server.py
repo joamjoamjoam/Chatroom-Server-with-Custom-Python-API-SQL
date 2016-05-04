@@ -78,7 +78,7 @@ def serverFunctionalCode(connection, client_address):
             chatForName(chatname)
         elif apiCall == 'createmessage':
             print 'createmessage request request recieved from ', client_address
-            sender = connection.recv(4096)
+            text = connection.recv(4096)
             chatname = connection.recv(4096)
             createMessage(text,chatname)
         elif apiCall == 'exit':
