@@ -96,7 +96,7 @@ def createMessage(text, chatname):
     global conn
     timestamp = datetime.datetime.now()
     try:
-        tmp = cursor.mogrify("INSERT INTO message(msg_text, msg_ts, sender, chatroom_name) VALUES('%s','%s',,'%s')" % (text,timestamp,connectedUser,chatname))
+        tmp = cursor.mogrify("INSERT INTO message(msg_text, msg_ts, sender, chatroom_name) VALUES('%s','%s',%s,'%s')" % (text,timestamp,connectedUser,chatname))
         cursor.execute("SELECT chatroom_name FROM chat WHERE chatroom_name='%s'" % chatname)
         results = cursor.fetchall()
         if len(results) > 0 and results[0][0] == chatname:
