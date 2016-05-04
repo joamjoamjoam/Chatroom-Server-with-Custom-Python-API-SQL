@@ -18,15 +18,6 @@ CREATE TABLE usr(
 	PRIMARY KEY (login),
 	FOREIGN KEY(friendslist) REFERENCES usrlist(list_id));
 
-CREATE TABLE message(
-	msg_id serial,
-	msg_text text NOT NULL,
-	msg_ts timestamp NOT NULL,
-	sender text,
-	chatroom_name text,
-	PRIMARY KEY(msg_id),
-	FOREIGN KEY(sender) REFERENCES usr(login),
-	FOREIGN KEY(chatroom_name) REFERENCES chat(chatroom_name));
 
 CREATE TABLE usrlist_contains(
 	list_id integer,
@@ -41,6 +32,16 @@ CREATE TABLE chat(
 	initialsender text,
 	PRIMARY KEY(chatroom_name),
 	FOREIGN KEY(initialsender) REFERENCES usr(login));
+
+CREATE TABLE message(
+	msg_id serial,
+	msg_text text NOT NULL,
+	msg_ts timestamp NOT NULL,
+	sender text,
+	chatroom_name text,
+	PRIMARY KEY(msg_id),
+	FOREIGN KEY(sender) REFERENCES usr(login),
+	FOREIGN KEY(chatroom_name) REFERENCES chat(chatroom_name));
 
 CREATE TABLE chatlist(
         chatroom_name text,
