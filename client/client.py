@@ -111,7 +111,7 @@ def chatForName(chatname):
     return results
 
 
-def createMessage(text,chatname)
+def createMessage(text,chatname):
     sock.send('createmessage')
     time.sleep(.3)
     sock.send(text)
@@ -176,6 +176,7 @@ if __name__=='__main__':
             elif choice == '2':
                 #view chat
                 done = False
+                done2 = False
                 chats = viewChats()
                 while not done:
                     for i in range(0,len(chats),1):
