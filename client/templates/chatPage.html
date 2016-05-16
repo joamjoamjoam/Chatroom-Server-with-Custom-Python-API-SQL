@@ -10,6 +10,8 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/chat.css" rel="stylesheet">
+	<link href="css/navigation.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,17 +20,27 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
+<style type="text/css">
+   body { background: #B2EED5 !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+</style>
   <body>
-    <h1>Chat UI Basic</h1>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+    <h1>THIS SIDE FOR VIDEO</h1>
 	
 <div class="chat_window">
 	<div class="top_menu">
 		<div class="buttons">
-			<div class="button close">
-			</div>
-			<div class="button minimize">
-			</div>
-			<div class="button maximize">
+			<div class="block_user">
+				<div class="icon">
+				</div>
+			<div class="text" data-toggle="modal" data-target="#blockModal">Block</div>
 			</div>
 		</div>
 		<div class="title">User's Name</div>
@@ -42,11 +54,6 @@
 			<div class="icon">
 			</div>
 			<div class="text">Send</div>
-		</div>
-		<div class="block_user">
-			<div class="icon">
-			</div>
-			<div class="text" data-toggle="modal" data-target="#blockModal">Block</div>
 		</div>
 	</div>
 </div>
@@ -80,15 +87,142 @@
 
 
 <!-- Navigation bar on top-side to alternate between profile/chat/friends list -->
+<body>
+	<div class="dropdown">
+	<div class="navigation">
+		<!-- <div class="dropdown"> -->
+			<a href="#" data-toggle="dropdown" class="dropdown-toggle">You are logged in as<b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<li><a href="#">Profile</a></li>
+				<li><a href="#">Change Password</a></li>
+				<li><a href="#">Logout</a></li>
+			</ul>
+		<a href="#">Friends</a>
+		<a href="#">Messages</a>
+		<a href="#">Block List</a>
+		</div>
+	</div>
+</body>
 
 
 
-<!-- Side bar for chat list -->
+<!-- Side bar for chat list, code from StackOverflow/template based on bootstrap Dashboard Layout -->
+<body style="">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-3 sidebar">
+      <li class="clearfix"> 
+ <form class="navbar-form" role="search">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+        <div class="input-group-btn">
+            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+    </div>
+    </form>
+    </li>
+      <ul class="nav nav-sidebar">
+
+        <li class="clearfix"><a href="#"><span class="chat-img pull-left">
+          <img src="http://www.goldenmeancalipers.com/wp-content/uploads/2011/12/mirror11.jpg" class="img-circle" height="40" width="40"/>
+        </span>
+          <div class="chat-body clearfix">
+              <div class="header">
+                <strong class="primary-font">User A</strong> <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>10 mins ago</small>
+              </div>
+              <p> 
+                Last message sent A
+              </p>
+          </div>
+        </a>
+        </li>
+
+
+        <li class="clearfix"><a href="#"><span class="chat-img pull-left">
+          <img src="http://i.telegraph.co.uk/multimedia/archive/01079/health-graphics-20_1079972a.jpg" class="img-circle" height="40" width="40"/>
+        </span>
+          <div class="chat-body clearfix">
+              <div class="header">
+                <strong class="primary-font">User B</strong> <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>12 mins ago</small>
+              </div>
+              <p> 
+                Last message sent B
+              </p>
+          </div>
+        </a>
+        </li>            <li class="clearfix"><a href="#"><span class="chat-img pull-left">
+          <img src="http://www.curlhairstyles.com/wp-content/uploads/2012/04/short-pixie-hairstyles-for-round-faces-2012.jpg" class="img-circle" height="40" width="40"/>
+        </span>
+          <div class="chat-body clearfix">
+              <div class="header">
+                <strong class="primary-font">User C</strong> <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>1 mins ago</small>
+              </div>
+              <p> 
+                Last message sent C
+              </p>
+          </div>
+        </a>
+        </li>            <li class="clearfix"><a href="#"><span class="chat-img pull-left">
+          <img src="http://turnlol.com/images/2012/10/women-models-mena-suvari-american-beauty-faces-white-background-1600x1200-hd-wallpaper.jpg" class="img-circle" height="40" width="40"/>
+        </span>
+          <div class="chat-body clearfix">
+              <div class="header">
+                <strong class="primary-font">User D</strong> <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>1 hr ago</small>
+              </div>
+              <p> 
+                Last message sent D
+              </p>
+          </div>
+        </a>
+        </li>           
+        <li class="clearfix"><a href="#"><span class="chat-img pull-left">
+          <img src="http://4.bp.blogspot.com/-PWtDcqcFWcg/TtdkqM3IsZI/AAAAAAAABu4/AdkNyL8xe-U/s1600/smiling-faces01.jpg" class="img-circle" height="40" width="40"/>
+        </span>
+          <div class="chat-body clearfix">
+              <div class="header">
+                <strong class="primary-font">User E</strong> <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>19 mins ago</small>
+              </div>
+              <p> 
+                Last message sent E
+              </p>
+          </div>
+        </a>
+        </li>            <li class="clearfix"><a href="#"><span class="chat-img pull-left">
+          <img src="http://dolchaybanana.blog.com/files/2010/12/ws_Aishwarya_Rai_face_1600x1200.jpg" class="img-circle" height="40" width="40"/>
+        </span>
+          <div class="chat-body clearfix">
+              <div class="header">
+                <strong class="primary-font">User F</strong> <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>8 mins ago</small>
+              </div>
+              <p> 
+                Last message sent F
+              </p>
+          </div>
+        </a>
+        </li>            <li class="clearfix"><a href="#"><span class="chat-img pull-left">
+          <img src="http://4.bp.blogspot.com/-cYickKEX6gE/UL3_l5gzXcI/AAAAAAAA7MM/tsKJ5xyzfkM/s1600/famo+3.jpg" class="img-circle" height="40" width="40"/>
+        </span>
+          <div class="chat-body clearfix">
+              <div class="header">
+                <strong class="primary-font">User G</strong> <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>29 mins ago</small>
+              </div>
+              <p> 
+                Last message sent G
+              </p>
+          </div>
+        </a>
+        </li>
+        </a>
+      </ul>
+    </div>
+  </div>
+</div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 	<script src="js/chat.js"></script>
+	<script src="js/docs.min.js"></script>
   </body>
 </html>
