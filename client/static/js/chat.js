@@ -29,3 +29,24 @@
             if (text.trim() === '') {
                 return;
             }
+            $('.message_input').val('');
+            $messages = $('.messages');
+			/* Currently set to send messages back-to-back between self */
+            message_side = message_side === 'left' ? 'right' : 'left';
+            message = new Message({
+                text: text,
+                message_side: message_side
+            });
+            message.draw();
+            return $messages.animate({ scrollTop: $messages.prop('scrollHeight') }, 300);
+        };
+        $('.send_message').click(function (e) {
+            return sendMessage(getMessageText());
+        });
+        $('.message_input').keyup(function (e) {
+            if (e.which === 13) {
+                return sendMessage(getMessageText());
+            }
+        });
+    });
+}.call(this));

@@ -140,6 +140,7 @@ body {
   font-weight: 300;
 }
 
+
 .bottom_wrapper {
   position: relative;
   width: 100%;
@@ -178,6 +179,23 @@ body {
   transition: all 0.2s linear;
   text-align: center;
   float: right;
+}
+.bottom_wrapper .block_user {
+	width: 50px;
+	height: 25px;
+	display: inline-block;
+	border-radius: 50px;
+	background-color: #BD0000;
+	border: 2px solid #BD0000;
+	color: #fff;
+	cursor: pointer;
+	transition: all 0.2s linear;
+	text-align: center;
+	float: right;
+}
+.bottom_wrapper .block_user:hover {
+	color: #BD0000;
+	background-color: #fff;
 }
 .bottom_wrapper .send_message:hover {
   color: #a3d063;

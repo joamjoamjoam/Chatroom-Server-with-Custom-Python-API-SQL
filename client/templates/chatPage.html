@@ -43,6 +43,11 @@
 			</div>
 			<div class="text">Send</div>
 		</div>
+		<div class="block_user">
+			<div class="icon">
+			</div>
+			<div class="text" data-toggle="modal" data-target="#blockModal">Block</div>
+		</div>
 	</div>
 </div>
 <div class="message_template">
@@ -52,9 +57,27 @@
 		<div class="text_wrapper">
 			<div class="text">
 			</div>
-		</div>
 	</li>
 </div>
+
+<!-- Modal for block button -->
+<div class="modal fade" id="blockModal" tabindex="-1" role="dialog" aria-labelled by="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Cancel"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Block User</h4>
+			</div>
+			<div class="modal-body">
+			Are you sure you want to block this user?
+			</div>
+			<div class="modal-footer">
+				<center><button type="button" class="btn btn-danger">Block</button></center>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 <!-- Navigation bar on top-side to alternate between profile/chat/friends list -->
 
