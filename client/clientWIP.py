@@ -13,7 +13,7 @@ sock = ""
 
 class PythonAPI(htmlPy.Object):
 	def __init__(self):
-        	super(PythonAPI. self).__init__()
+        	super(PythonAPI, self).__init__()
 	        # Create a TCP/IP socket
 	        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	        # Connect the socket to the port where the server is listening
@@ -24,8 +24,8 @@ class PythonAPI(htmlPy.Object):
 	        sock.connect(server_address)
         	# Initialize the class here, if required.
         	return
-	@htmlPy.Slot()
-	def register(user, password):
+	@htmlPy.Slot(str, str, result=bool)
+	def register(self, user, password):
 	    sock.send('register')
 	    sock.send(user)
 	    time.sleep(.3)
@@ -39,17 +39,17 @@ class PythonAPI(htmlPy.Object):
 		return False
 	
 	@htmlPy.Slot()
-	def logout():
+	def logout(self):
 	    sock.send('logout')
 
 	@htmlPy.Slot()
-	def disconnect():
+	def disconnect(self):
 	    sock.send('exit')
 	    sock.close()
 	    print 'Succesfully Disconnected'
 
-	@htmlPy.Slot()
-	def login(user, password):
+	@htmlPy.Slot(str, str, result=bool)
+	def login(self, user, password):
 	    sock.send("login")
 	    #check credentials and disconnect if not correct
 	    sock.sendto(user, server_address)
@@ -65,16 +65,16 @@ class PythonAPI(htmlPy.Object):
 		print >> sys.stderr, 'Logged in Succesfully'
 		return True
 
-	@htmlPy.Slot()
-	def viewFriendsList():
+	@htmlPy.Slot(result=bool)
+	def viewFriendsList(self):
 	    sock.send("viewfriendslist")
 	    #view friends list
 	    pickledString = sock.recv(4096)
 	    result = pickle.loads(pickledString)
 	    return result
 
-	@htmlPy.Slot()
-	def addUserToFriendsList(userToAdd):
+	@htmlPy.Slot(str, result=bool)
+	def addUserToFriendsList(self, userToAdd):
 	    sock.send("addtofriendslist")
 	    sock.send(userToAdd)
 	    accepted = sock.recv(4096)
@@ -83,8 +83,8 @@ class PythonAPI(htmlPy.Object):
 	    else:
 		return False
 
-	@htmlPy.Slot()
-	def createChat(chatname):
+	@htmlPy.Slot(str, result=bool)
+	def createChat(self, chatname):
 	    sock.send('createchat')
 	    time.sleep(.3)
 	    sock.send(chatname)
@@ -97,14 +97,14 @@ class PythonAPI(htmlPy.Object):
 
 
 
-	@htmlPy.Slot()
-	def viewChats():
+	@htmlPy.Slot(str, result=list)
+	def viewChats(self):
 	    sock.send('viewchats')
 	    chatIDs = pickle.loads(sock.recv(4096))
 	    return chatIDs
 
-	@htmlPy.Slot()
-	def deleteUser(userToDelete):
+	@htmlPy.Slot(str, result=bool)
+	def deleteUser(self, userToDelete):
 	    sock.send('deleteuser')
 	    sock.send(userToDelete)
 	    response = sock.recv(4096)
@@ -113,8 +113,8 @@ class PythonAPI(htmlPy.Object):
 	    else:
 		return False
 
-	@htmlPy.Slot()
-	def joinChat(chatname):
+	@htmlPy.Slot(str, result=bool)
+	def joinChat(self, chatname):
 	    sock.send('joinchat')
 	    time.sleep(.3)
 	    sock.send(chatname)
@@ -124,8 +124,8 @@ class PythonAPI(htmlPy.Object):
 	    else:
 		return False
 
-	@htmlPy.Slot()
-	def chatForName(chatname):
+	@htmlPy.Slot(str, result=list)
+	def chatForName(self, chatname):
 	    sock.send('chatforname')
 	    time.sleep(.3)
 	    sock.send(chatname)
@@ -135,8 +135,8 @@ class PythonAPI(htmlPy.Object):
 	    return results
 
 
-	@htmlPy.Slot()
-	def createMessage(text,chatname):
+	@htmlPy.Slot(str, str, result=bool)
+	def createMessage(self,text,chatname):
 	    sock.send('createmessage')
 	    time.sleep(.3)
 	    sock.send(text)
@@ -168,114 +168,3 @@ app.bind(PythonAPI())
 
 if __name__=='__main__':
     app.start()
-
-    #old client below, need to intergrate with GUI
-    authenticated = False
-    choice = '0'
-    wantsToExit = False
-    while not authenticated and not wantsToExit:
-		while not authenticated or wantsToExit:
-		    print '1. Register'
-		    print '2. Login'
-		    print '3. Exit'
-		    choice = raw_input('Select an option > ')
-
-		    if choice == '1':
-		        user = raw_input('login_username:')
-		        password = getpass.getpass()
-		        authenticated = register(user, password)
-		        currentUser = user
-		    elif choice == '2':
-		        user = raw_input('Username > ')
-		        password = raw_input('Password > ')
-		        authenticated = login(user, password)
-		    elif choice == '3':
-		        disconnect()
-		        wantsToExit = True
-		        break
-		choice = '0'
-		while authenticated and choice == '0':
-		    print '1. Create Chat'
-		    print '2. View Chats'
-		    print '3. Add to Friends'
-		    print '4. View Friends List'
-		    print '5. Join Chat'
-		    print '6. Logout'
-		    print '7. Delete User'
-		    print '8. Exit'
-		    choice = raw_input('Select an option > ')
-
-		    if choice == '1':
-		        #create chat
-		        chatname = raw_input('Please input a chat room name >> ')
-		        if createChat(chatname):
-		            print 'chat created succesfully'
-		        choice = '0'
-		    elif choice == '2':
-		        #view chat
-		        done = False
-		        done2 = False
-		        chats = viewChats()
-		        while not done:
-		            done = False
-		            done2 = False
-		            for i in range(0,len(chats),1):
-		                print i+1, '. ', chats[i][0]
-		            tmp = raw_input('Enter 0 when done >> ')
-		            if tmp == '0':
-		                done = True
-		            elif int(float(tmp)) > 0 and int(float(tmp)) <= len(chats):
-
-		                while not done2:
-		                    messages = chatForName(chats[int(float(tmp)) - 1][0])
-		                    for i in range(0,len(messages),1):
-		                        print i+1, '. ', messages[i][1], messages[i][3], messages[i][2]
-		                    tmp = raw_input('Enter 0 when done or 1 to create message >> ')
-		                    if tmp == '0':
-		                        done2 = True
-		                    else:
-		                        text = raw_input('message text >> ')
-		                        createMessage(text,chats[int(float(tmp)) -1][0])
-		        choice = '0'
-		    elif choice == '3':
-		        #add to friends
-		        add = raw_input('User to add >> ')
-		        if addUserToFriendsList(add):
-		            print 'User Added'
-		        else:
-		            print 'No User with that name.'
-		        choice = '0'
-		    elif choice == '4':
-		        #view friends list
-		        done = False
-		        friendsList = viewFriendsList()
-		        while not done:
-		            for i in range(0,len(friendsList),1):
-		                print i+1, '. ', friendsList[i][0]
-		            tmp = raw_input('Enter 0 when done >> ')
-		            if tmp == '0':
-		                done = True
-		        choice = '0'
-		    elif choice == '5':
-		        #join chat
-		        chatname = raw_input('Chat to Join >> ')
-		        if joinChat(chatname):
-		            print 'Chat %s Joined' % chatname
-		        else:
-		            print 'No Chat with that name'
-		        choice = '0'
-		    elif choice == '6':
-		        logout()
-		        authenticated = False
-		    elif choice == '7':
-		        if deleteUser(user):
-		            authenticated = False
-		            print 'User Was Deleted'
-		        else:
-		            print 'You can only delete the currently logged in user'
-		            choice == '0'
-		    elif choice == '8':
-		        disconnect()
-		        wantsToExit = True
-		        break
-		choice = '0'
