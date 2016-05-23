@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CS 180 Chat App</title>
+
+    <!-- Bootstrap -->
+    <link href="{{ 'css/bootstrap.min.css'|staticfile }}" rel="stylesheet">
+	<link href="{{ 'css/chat.css'|staticfile }}" rel="stylesheet">
+	<link href="{{ 'css/navigation.css'|staticfile }}" rel="stylesheet">
+	<link href="{{ 'css/style.css'|staticfile }}"  rel="stylesheet">
+	<link href="{{ 'css/font-awesome.min.css'|staticfile }}"  rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+<style type="text/css">
+   body { background: #B2EED5 !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+</style>
+
+<body>
+	<!--NAV BAR ==================================================-->
+	<div class="navigation">
+		<nav class="navbar navbar-inverse">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbarbrand"><i class="fa fa-commenting fa-2x" aria-hidden="true"></i></a>
+		      <a class="navbartitle">Chat Name</a>
+		    </div>
+		    <ul class="nav navbar-nav navbar-right">
+		      <li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">You
+			<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+			  <li><a href="#">Settings</a></li>
+			  <li><a href="#">Whatever</a></li>
+			  <li><a href="#">Logout</a></li> 
+			</ul>
+		      </li>
+		      <li class="nav-divider"></li>
+		      <li><a href="#"><span class="fa fa-envelope"></span></a></li>
+		    </ul>
+		  </div>
+		</nav>
+	</div>
+	<!--NAV BAR ==================================================-->
+
+	<!--MOST OF THE STUFF ==================================================-->
+	<div class="bottomcontainer">
+	  <div class="row no-gutter">
+	    <!-- CHAT AREA==================================================-->
+	    <div class="col-lg-8">
+	      <div class="chatwrapper">
+		<div class="chatheaderwrapper">Chat room name
+		</div>
+		<div class="chattextwrapper">Chatting goes here
+		</div>
+		<div class="chatinputwrapper">
+			<div class="col-lg-10">
+				<input class="chatinputbox" type="text"/>
+			</div>
+			<div class="col-lg-2">
+				<button class="chatinputbutton">Send</button>
+			</div>
+		</div>
+	      </div>
+	    </div>
+	    <!-- CHAT AREA==================================================-->
+
+
+	    <!-- SIDEBAR AREA==================================================-->
+	    <div class="col-lg-4">
+	      <div class="sidewrapper">
+		<div class="tabbuttons">
+		  <div class="row no-gutter">
+			  <div class="col-sm-6">
+				<a href=#>
+					<div class="roombutton">Rooms
+					</div>
+				</a>
+			  </div>
+			  <div class="col-sm-6">
+				<a href=#>
+					<div class="contactbutton">Contacts
+					</div>
+				</a>
+			  </div>
+		  </div>
+	        </div>
+                <div class="roomwrapper">
+			<div class="roomlist">Room List
+				    
+			</div>
+			<a href=#>
+				<div class="addroom">Add Room
+			
+				</div>
+			</a>
+	        </div>
+	      </div>
+	    </div>
+            <!-- SIDEBAR AREA==================================================-->
+	  </div>
+	</div>
+	<!--MOST OF THE STUFF  ==================================================-->
+	
+</body>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ 'js/bootstrap.min.js'|staticfile }}"></script>
+	<script src="{{ 'js/chat.js'|staticfile }}"></script>
+	<script src="{{ 'js/docs.js'|staticfile }}"></script>
+  </body>
+</html>

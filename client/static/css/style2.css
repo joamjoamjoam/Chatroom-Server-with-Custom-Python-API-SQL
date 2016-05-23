@@ -1,0 +1,128 @@
+.fa-commenting {
+  color: white;
+}
+
+.sidewrapper{
+  height:700px;
+  position:relative;
+  top: 2px;
+}
+
+.roombutton{
+  background-color:#0059b3;
+  color:#FAFAFA;
+  height:40px;
+  text-align:center;
+  vertical-align:middle;
+  line-height:40px;
+}
+
+.contactbutton{
+  background-color:#0066cc;
+  color:#FAFAFA;
+  height:40px;
+  text-align:center;
+  vertical-align:middle;
+  line-height:40px;
+}
+
+.tabbuttons{
+  height:40px;
+  background-color:black;
+}
+
+.roomwrapper{
+  background-color:blue;
+}
+
+.roomlist{
+  background-color:#004d99;
+  color:#FAFAFA;
+  height:600px;
+}
+
+.addroom{
+  background-color:#00264d;
+  color:#FAFAFA;
+  height:60px;
+  text-align:center;
+  vertical-align:middle;
+  line-height:60px;
+}
+
+.chatwrapper{
+  height:700px;
+  position:relative;
+  top: 2px;
+  background-color:orange;
+}
+
+.chatheaderwrapper{
+  height:60px;
+  position:relative;
+  background-color:#4da6ff;
+}
+
+.chattextwrapper{
+  height:535px;
+  position:relative;
+  background-color:#4da6ff;
+}
+
+.chatinputwrapper{
+  height:100px;
+  position:relative;
+  bottom: 2px;
+  background-color:#4da6ff;
+}
+
+.navbarbrand{
+  position:relative;
+  top: 5px;
+  right: 15px;
+}
+
+.navbar{
+  position:relative;
+  bottom: 10px;
+}
+
+.navbartitle{
+  position:relative;
+  top: 3px;
+  right: 35px;
+}
+
+.bg-2{
+ background-color:#FF0DFF;
+}
+
+.bottomcontainer{
+ position:relative;
+ top:50px;
+}
+
+.chatinputbox{
+  width: 100%;
+  position:relative;
+  top:30px;
+  background-color:#F0F0F0;
+}
+.chatinputbutton{
+  width: 100%;
+  position:relative;
+  top: 30px;
+  background-color:#0066cc;
+  color:#FAFAFA;
+}
+
+.row.no-gutter {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.row.no-gutter [class*='col-']:not(:first-child),
+.row.no-gutter [class*='col-']:not(:last-child) {
+  padding-right: 0;
+  padding-left: 0;
+}
