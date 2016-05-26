@@ -1,3 +1,15 @@
+.space{
+    width:50%;
+  background-color:#0059b3;
+}
+
+.buttonspace {
+	top: 30px;
+	width: 100%;
+	position: relative;
+}
+
+
 .fa-commenting {
   color: white;
 }
@@ -51,7 +63,7 @@
 }
 
 .chatwrapper{
-  height:700px;
+  height: 100%;
   position:relative;
   top: 2px;
   background-color:orange;
@@ -100,6 +112,7 @@
 .bottomcontainer{
  position:relative;
  top:50px;
+ bottom: 2px;
 }
 
 .chatinputbox{
@@ -117,6 +130,7 @@
 }
 
 .row.no-gutter {
+
   margin-left: 0;
   margin-right: 0;
 }

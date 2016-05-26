@@ -9,7 +9,7 @@
 
     <!-- Bootstrap -->
     <link href="{{ 'css/bootstrap.min.css'|staticfile }}" rel="stylesheet">
-	<link href="{{ 'css/chat.css'|staticfile }}" rel="stylesheet">
+	<!--<link href="{{ 'css/chat.css'|staticfile }}" rel="stylesheet"> -->
 	<link href="{{ 'css/navigation.css'|staticfile }}" rel="stylesheet">
 	<link href="{{ 'css/style2.css'|staticfile }}"  rel="stylesheet">
 	<link href="{{ 'css/font-awesome.min.css'|staticfile }}"  rel="stylesheet">
@@ -57,17 +57,17 @@
 	  <div class="row no-gutter">
 	    <!-- CHAT AREA==================================================-->
 	    <div class="col-lg-8">
-	      <div class="chatwrapper">
+	    <div class="chatwrapper">
 		<div class="chatheaderwrapper">Chat room name
 		</div>
 		<div class="chattextwrapper">Chatting goes here
 		</div>
 		<div class="chatinputwrapper">
 			<div class="col-lg-10">
-				<input class="chatinputbox" type="text"/>
+				<input type="text" class="form-control buttonspace" placeholder="Type your message here...">
 			</div>
 			<div class="col-lg-2">
-				<button class="chatinputbutton">Send</button>
+				<button type="button" class="btn btn-default buttonspace">Send</button>
 			</div>
 		</div>
 	      </div>
@@ -77,35 +77,27 @@
 
 	    <!-- SIDEBAR AREA==================================================-->
 	    <div class="col-lg-4">
-	      <div class="sidewrapper">
-		<div class="tabbuttons">
-		  <div class="row no-gutter">
-			  <div class="col-sm-6">
-				<a href=#>
-					<div class="roombutton">Rooms
-					</div>
-				</a>
-			  </div>
-			  <div class="col-sm-6">
-				<a href=#>
-					<div class="contactbutton">Contacts
-					</div>
-				</a>
-			  </div>
-		  </div>
-	        </div>
-                <div class="roomwrapper">
-			<div class="roomlist">Room List
+			<div class="sidewrapper">
+				<div class="row no-gutter">
+					<ul class="nav nav-tabs">
+						<li class="active space"><a href="#tab-one" data-toggle="tab">Rooms</a></li>
+						<li class="space"><a href="#tab-two" data-toggle="tab">Contacts</a></li>
+					</ul>
+					<div class="roomwrapper">
+						<div class="tab-content">
+							<div class="roomlist" id="tab-one" >Room List
 				    
-			</div>
-			<a href=#>
-				<div class="addroom">Add Room
+							</div>
+							<a href=#>
+							<div class="addroom">Add Room
 			
+							</div>
+							</a>
+						</div>
+					</div>
 				</div>
-			</a>
-	        </div>
-	      </div>
-	    </div>
+			</div>
+		</div>
             <!-- SIDEBAR AREA==================================================-->
 	  </div>
 	</div>
