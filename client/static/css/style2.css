@@ -3,7 +3,7 @@
 }
 
 .sidewrapper{
-  height:700px;
+  height:100%;
   position:relative;
   top: 2px;
 }
@@ -33,12 +33,15 @@
 
 .roomwrapper{
   background-color:blue;
+  height:100%;
+  display: block;
 }
 
 .roomlist{
-  background-color:#004d99;
+  background-color:#0059b3;
   color:#FAFAFA;
   height:600px;
+  overflow: auto;
 }
 
 .addroom{
@@ -50,8 +53,71 @@
   line-height:60px;
 }
 
+.room{
+  color:#FAFAFA;
+  height:70px;
+  text-align:center;
+  vertical-align:middle;
+  line-height:60px;
+}
+
+.oddbackgroundside{
+  background-color:#004d99;
+}
+.evenbackgroundside{
+  background-color:#0059b3;
+}
+
+.contactswrapper{
+  background-color:blue;
+  height:100%;
+  display: none;
+}
+
+.contactslist{
+  background-color:#0059b3;
+  color:#FAFAFA;
+  height:600px;
+  overflow: auto;
+}
+
+.addcontact{
+  background-color:#00264d;
+  color:#FAFAFA;
+  height:60px;
+  text-align:center;
+  vertical-align:middle;
+  line-height:60px;
+}
+
+.contact{
+  color:#FAFAFA;
+  height:70px;
+  text-align:center;
+  vertical-align:middle;
+  line-height:60px;
+}
+
+.friendheader{
+  background-color:#0000b3;
+  color:#FAFAFA;
+  height:45px;
+  text-align:center;
+  vertical-align:middle;
+  line-height:60px;
+}
+
+.blockheader{
+  background-color:#0000b3;
+  color:#FAFAFA;
+  height:45px;
+  text-align:center;
+  vertical-align:middle;
+  line-height:60px;
+}
+
 .chatwrapper{
-  height:700px;
+  height:100%;
   position:relative;
   top: 2px;
   background-color:orange;
@@ -60,20 +126,36 @@
 .chatheaderwrapper{
   height:60px;
   position:relative;
-  background-color:#4da6ff;
+  background-color:#00b386;
+  color:#FAFAFA;
+  vertical-align:middle;
+  line-height:60px;
 }
 
 .chattextwrapper{
   height:535px;
-  position:relative;
-  background-color:#4da6ff;
+  background-color:#ccffe6;
+  overflow:auto;
+}
+
+.chattext{
+  color:black;
+  height:20px;
+  vertical-align:middle;
+}
+
+.oddbackgroundchat{
+  background-color:#ccffdd;
+}
+.evenbackgroundchat{
+  background-color:#b3ffcc;
 }
 
 .chatinputwrapper{
   height:100px;
   position:relative;
   bottom: 2px;
-  background-color:#4da6ff;
+  background-color:#00cc66;
 }
 
 .navbarbrand{
@@ -103,17 +185,19 @@
 }
 
 .chatinputbox{
-  width: 100%;
   position:relative;
-  top:30px;
+  top:35px;
   background-color:#F0F0F0;
 }
 .chatinputbutton{
-  width: 100%;
   position:relative;
-  top: 30px;
+  top:35px;
   background-color:#0066cc;
   color:#FAFAFA;
+}
+
+.dontshow{
+  display:none;
 }
 
 .row.no-gutter {
