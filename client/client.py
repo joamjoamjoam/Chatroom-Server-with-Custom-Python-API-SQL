@@ -122,7 +122,7 @@ def createMessage(text,chatname):
         return False
 
 def membersForChatname(chatname):
-    sock.send('membersforchatid')
+    sock.send('membersforchatname')
     time.sleep(.3)
     sock.send(chatname)
     results = pickle.loads(sock.recv(4096))

@@ -85,6 +85,11 @@ def serverFunctionalCode(connection, client_address):
             print 'Exit request recieved from ', client_address
             connection.close()
             return 0
+        elif apiCall == 'membersforchatname':
+            chatname = connection.recv(4096)
+            membersForChatname(chatname)
+            connection.close()
+            return 0
         else:
             print 'Invalid Call'
 
