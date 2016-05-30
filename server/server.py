@@ -323,6 +323,26 @@ def chatForName(chatname):
         print e
         conn.send(pickle.dumps(results))
 
+def membersForChatname(chatname):
+    global cursor
+    global connectedUser
+    global DBcon
+    global conn
+    results = []
+    try:
+        cursor.execute("SELECT member FROM chatlist WHERE chatroom_name='%s'" % chatname)
+        results = cursor.fetchall()
+        if len(results) > 0:
+            conn.send(pickle.dumps(results))
+        else:
+            print 'no room with that name'
+            conn.send(pickle.dumps(results))
+
+    except psycopg2.Error as e:
+        print 'error getting chatforname'
+        print e
+        conn.send(pickle.dumps(results))
+
 
 if __name__=='__main__':
     # Create a TCP/IP socket

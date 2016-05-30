@@ -110,7 +110,6 @@ def chatForName(chatname):
 
     return results
 
-
 def createMessage(text,chatname):
     sock.send('createmessage')
     time.sleep(.3)
@@ -121,6 +120,14 @@ def createMessage(text,chatname):
         return True
     else:
         return False
+
+def membersForChatname(chatname):
+    sock.send('membersforchatid')
+    time.sleep(.3)
+    sock.send(chatname)
+    results = pickle.loads(sock.recv(4096))
+
+    return results
 
 if __name__=='__main__':
     # Create a TCP/IP socket
