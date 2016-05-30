@@ -88,7 +88,6 @@ def serverFunctionalCode(connection, client_address):
         elif apiCall == 'membersforchatname':
             chatname = connection.recv(4096)
             membersForChatname(chatname)
-            connection.close()
             return 0
         else:
             print 'Invalid Call'
