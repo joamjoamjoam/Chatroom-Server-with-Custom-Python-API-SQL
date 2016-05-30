@@ -5,9 +5,8 @@ import os
 import time
 import cPickle as pickle
 import cStringIO as StringIO
-import Tkinter
+from Tkinter import *
 
-sock = ""
 
 def register(user, password):
     sock.send('register')
@@ -102,7 +101,14 @@ def joinChat(chatname):
     else:
         return False
 
+def loginBtnPressed(user,passw):
+    global authenticated
+    authenticated = login(user,passw)
+    return
+
 if __name__=='__main__':
+    global authenticated
+    authrnticated = False
     # Create a TCP/IP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -113,5 +119,21 @@ if __name__=='__main__':
     authenticationCredentials = ["",""]
     sock.connect(server_address)
     authenticated = False
-    login = Tkinter.Tk()
-    top.mainloop()
+    loginw = Tk()
+    userLbl = Label(loginw,text="Username:")
+    userLbl.pack(side = LEFT)
+    userEntry = Entry(loginw, bd = 5)
+    userEntry.pack(side = RIGHT)
+
+    passLbl = Label(loginw,text="Password:")
+    passLbl.pack(side = LEFT)
+    passEntry = Entry(loginw, bd = 5)
+    passEntry.pack(side = RIGHT)
+    
+    loginBtn = Button(loginw, text="Login", command =loginBtnPressed(userEntry.get(),passEntry.get()))
+    loginBtn.pack()
+    loginw.mainloop()
+
+    while not authenticated:
+	x = 1
+

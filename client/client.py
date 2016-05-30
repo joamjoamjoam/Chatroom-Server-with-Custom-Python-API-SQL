@@ -10,6 +10,7 @@ sock = ""
 
 def register(user, password):
     sock.send('register')
+    time.sleep(.3)
     sock.send(user)
     time.sleep(.3)
     sock.send(password)
@@ -31,6 +32,7 @@ def disconnect():
 
 def login(user, password):
     sock.send("login")
+    time.sleep(.3)
     #check credentials and disconnect if not correct
     sock.sendto(user, server_address)
     time.sleep(.3)
@@ -55,6 +57,7 @@ def viewFriendsList():
 
 def addUserToFriendsList(userToAdd):
     sock.send("addtofriendslist")
+    time.sleep(.3)
     sock.send(userToAdd)
     accepted = sock.recv(4096)
     if accepted == 'YES':
@@ -83,6 +86,7 @@ def viewChats():
 
 def deleteUser(userToDelete):
     sock.send('deleteuser')
+    time.sleep(.3)
     sock.send(userToDelete)
     response = sock.recv(4096)
 
