@@ -40,9 +40,7 @@
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">You
 			<span class="caret"></span></a>
 			<ul class="dropdown-menu">
-			  <li><a href="#">Settings</a></li>
-			  <li><a href="#">Whatever</a></li>
-			  <li><a href="#">Logout</a></li> 
+			  <li><a href="PythonAPI.logout" id="link" data-bind="true">Logout</a></li>
 			</ul>
 		      </li>
 		      <li class="nav-divider"></li>
@@ -59,7 +57,7 @@
 	    <!-- CHAT AREA==================================================-->
 	    <div class="col-lg-8">
 	      <div class="chatwrapper">
-		<div class="chatheaderwrapper" id="textheader">Chat room name
+		<div class="chatheaderwrapper" id="textheader">GeneralChat
 		</div>
 		<div class="chattextwrapper" id="textarea">
 			<div class="chattext dontshow"></div>
@@ -113,12 +111,11 @@
 					<div class="contact thefriend dontshow"></div>
 				</div>
 				<div class="blocklist" id="blockList">
-					<div class="blockheader" id="block-header">Block List</div>
 					<div class="contact theblock dontshow"></div>
 				</div>
 			</div>
 			<a href=# value= "Friend/Block Contact" id="addContact" data-toggle="modal" data-target="#contactModal">
-				<div class="addcontact">Friend/Block Contact
+				<div class="addcontact">Add Contact
 			
 				</div>
 			</a>
@@ -138,7 +135,7 @@
 		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		    <span aria-hidden="true">&times;</span>
 		  </button>
-		  <h4 class="modal-title room-modal-title" id="exampleModalLabel">Join or Create Room</h4>
+		  <h4 class="modal-title room-modal-title" id="exampleModalLabel">Create Room</h4>
 		</div>
 		<div class="modal-body">
 		  <form>
@@ -150,7 +147,6 @@
 		</div>
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		  <button type="button" class="btn btn-primary">Join Room</button>
 		  <button type="button" class="btn btn-primary" id="createRoom">Create Room </button>
 		</div>
 	      </div>
@@ -169,7 +165,7 @@
 		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		    <span aria-hidden="true">&times;</span>
 		  </button>
-		  <h4 class="modal-title contact-modal-title" id="contactModalLabel">Add or Block Contact</h4>
+		  <h4 class="modal-title contact-modal-title" id="contactModalLabel">Add Contact</h4>
 		</div>
 		<div class="modal-body">
 		  <form>
@@ -182,7 +178,6 @@
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 		  <button type="button" class="btn btn-primary" id="createFriend">Add Contact</button>
-		  <button type="button" class="btn btn-primary" id="createBlock">Block Contact</button>
 		</div>
 	      </div>
 	    </div>
