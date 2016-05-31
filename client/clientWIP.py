@@ -162,7 +162,9 @@ class PythonAPI(htmlPy.Object):
 
 	    if sock.recv(4096) == 'YES':
 		return True
+		print 'message success.'
 	    else:
+		print 'message failed.'
 		return False
 
 	@htmlPy.Slot(result=str)
