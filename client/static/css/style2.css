@@ -73,10 +73,11 @@
 
 .room{
   color:#FAFAFA;
-  height:70px;
+  height:140px;
   text-align:center;
   vertical-align:middle;
   line-height:60px;
+
 }
 
 .oddbackgroundside{
@@ -84,6 +85,15 @@
 }
 .evenbackgroundside{
   background-color:#0059b3;
+}
+
+#roomborder {
+	color: #000;
+	display: block;
+	line-height: 1px;
+	padding: 0 10px;
+	text-decoration: none;
+	border-right: 1px solid #000;
 }
 
 .contactswrapper{
@@ -141,6 +151,7 @@
   display: block;
   bottom: 0;
   background-color:#00b386;
+  overflow: auto;
 }
 
 .chatheaderwrapper{
