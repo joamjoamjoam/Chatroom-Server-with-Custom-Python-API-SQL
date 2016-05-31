@@ -27,7 +27,7 @@ def serverFunctionalCode(connection, client_address):
     conn = connection
     #setup DB Connection
     try:                        #"dbname=mydb user=postgres password=cgttewr1 host=127.0.0.1 port=5433"
-        DBcon = psycopg2.connect("dbname=mydb user=postgres password=cgttewr1 host=127.0.0.1 port=5432")
+        DBcon = psycopg2.connect("dbname=mydb user=postgres password=cgttewr1 host=127.0.0.1 port=5433")
         DBcon.autocommit = True
         cursor = DBcon.cursor()
     except:
