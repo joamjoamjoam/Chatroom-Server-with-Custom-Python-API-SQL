@@ -9,7 +9,6 @@
 		var usertext = PythonAPI.getUsername() + "-> " + $('input[id="thetext"]').val();
 		var chatroom = $("#textheader").text();
 		var result = PythonAPI.createMessage(usertext, chatroom);
-		alert(usertext);
 		$('#thetext').val('');
 		if(result)
 		{
