@@ -7,10 +7,6 @@ import cPickle as pickle
 import datetime
 import cStringIO as StringIO
 
-connectedUser = ""
-cursor = ""
-DBcon = ""
-conn = ""
 
 #create messages and get messages for chat
 #edit profiles
@@ -20,10 +16,9 @@ conn = ""
 def serverFunctionalCode(connection, client_address):
     authenticated = False
     choice = '0'
-    global connectedUser
-    global cursor
-    global DBcon
-    global conn
+    connectedUser = ''
+    cursor = ""
+    DBcon = ""
     conn = connection
     #setup DB Connection
     try:                        #"dbname=mydb user=postgres password=cgttewr1 host=127.0.0.1 port=5433"
@@ -39,48 +34,48 @@ def serverFunctionalCode(connection, client_address):
         apiCall = connection.recv(4096)
         if apiCall == 'login':
             print 'Login request recieved from ', client_address
-            login()
+            connectedUser = login(DBcon,conn,cursor)
         elif apiCall == 'register':
             print 'Registering request recieved from ', client_address
-            register()
+            connectedUser = register(DBcon,conn,cursor)
         elif apiCall == 'viewfriendslist':
             print 'View Friends List request recieved from ', client_address
             print 'Connected User is %s' % connectedUser
-            viewFriendsList()
+            viewFriendsList(DBcon,conn,cursor,connectedUser)
         elif apiCall == 'createchat':
             print 'Create Chat request recieved from ', client_address
             print 'Connected User is %s' % connectedUser
             chatname = connection.recv(4096)
-            createChat(chatname)
+            createChat(chatname,DBcon,conn,cursor,connectedUser)
         elif apiCall == 'viewchats':
             print 'View Chats request recieved from ', client_address
             print 'Connected User is %s' % connectedUser
-            viewChats()
+            viewChats(DBcon,conn,cursor,connectedUser)
         elif apiCall == 'addtofriendslist':
             print 'Add to Friends List request recieved from ', client_address
             print 'Connected User is %s' % connectedUser
             userToAdd = connection.recv(4096)
-            addUserToFriendsList(userToAdd)
+            addUserToFriendsList(userToAdd,DBcon,conn,cursor,connectedUser)
         elif apiCall == 'logout':
             print 'Logout request recieved from ', client_address
-            logout()
+            connectedUser = logout(DBcon,conn,cursor,connectedUser)
         elif apiCall == 'deleteuser':
             print 'Delete User request request recieved from ', client_address
             user = connection.recv(4096)
-            deleteuser(user)
+            deleteuser(user,DBcon,conn,cursor,connectedUser)
         elif apiCall == 'joinchat':
             print 'join chat request request recieved from ', client_address
             chatname = connection.recv(4096)
-            joinChat(chatname)
+            joinChat(chatname,DBcon,conn,cursor,connectedUser)
         elif apiCall == 'chatforname':
             print 'chatforname request request recieved from ', client_address
             chatname = connection.recv(4096)
-            chatForName(chatname)
+            chatForName(chatname,DBcon,conn,cursor,connectedUser)
         elif apiCall == 'createmessage':
             print 'createmessage request request recieved from ', client_address
             text = connection.recv(4096)
             chatname = connection.recv(4096)
-            createMessage(text,chatname)
+            createMessage(text,chatname,DBcon,conn,cursor,connectedUser)
         elif apiCall == 'exit':
             print 'Exit request recieved from ', client_address
             connection.close()
@@ -88,21 +83,17 @@ def serverFunctionalCode(connection, client_address):
         elif apiCall == 'membersforchatname':
             print 'Retrieve member in chat request from ', client_address
             chatname = connection.recv(4096)
-            membersForChatname(chatname)
+            membersForChatname(chatname,DBcon,conn,cursor,connectedUser)
             return 0
         elif apiCall == 'getinfoforname':
             print 'getinfo request request recieved from ', client_address
             username = connection.recv(4096)
-            getInfoForUser(username)
+            getInfoForUser(username,DBcon,conn,cursor,connectedUser)
         else:
             print 'Invalid Call'
 
-def createMessage(text, chatname):
+def createMessage(text, chatname,DBcon,conn,cursor):
 
-    global cursor
-    global connectedUser
-    global DBcon
-    global conn
     timestamp = datetime.datetime.now()
     try:
         tmp = cursor.mogrify("INSERT INTO message(msg_text, msg_ts, sender, chatroom_name) VALUES('%s','%s','%s','%s')" % (text,timestamp,connectedUser,chatname))
@@ -123,11 +114,7 @@ def createMessage(text, chatname):
 
 
 
-def register():
-    global connectedUser
-    global cursor
-    global DBcon
-    global conn
+def register(DBcon,conn,cursor):
 
     newName = conn.recv(4096)
     newPass = conn.recv(4096)
@@ -145,21 +132,20 @@ def register():
             DBcon.commit()
             connectedUser = newName
             authenticated = True
+            return newName
         except psycopg2.Error as e:
             print ("Error Inserting new user into usr table.")
             print e
             conn.send('NO')
+            return ''
     else:
         #username is taken
         conn.send('NO')
-    connectedUser = newName
+        return ''
 
 
-def login():
-    global connectedUser
-    global cursor
-    global DBcon
-    global conn
+def login(DBcon,conn,cursor):
+
     tmpUser = conn.recv(4096)
     tmpPassword = conn.recv(4096)
 
@@ -171,21 +157,21 @@ def login():
         print 'error running select query for login'
         print e
     if len(results) > 0 and results[0][0] == tmpPassword:
+        print 'here'
         authenticated = True
-        connectedUser = tmpUser
         conn.send('YES')
+        return tmpUser
+
     else:
+        print 'wrong'
         conn.send('NO')
+        return ''
 
-def logout():
-    global connectedUser
-    connectedUser = ""
+def logout(DBcon,conn,cursor):
+    return ""
 
-def viewFriendsList():
-    global cursor
-    global connectedUser
-    global DBcon
-    global conn
+def viewFriendsList(DBcon,conn,cursor,connectedUser):
+
     try:
         cursor.execute("SELECT friendslist FROM usr WHERE login='%s'" % connectedUser)
         friendsListID = cursor.fetchone()[0]
@@ -196,11 +182,8 @@ def viewFriendsList():
         print 'error viewing friendslist'
         print e
 
-def addUserToFriendsList(userToAdd):
-    global cursor
-    global connectedUser
-    global DBcon
-    global conn
+def addUserToFriendsList(userToAdd,DBcon,conn,cursor,connectedUser):
+
     results = []
     try:
         cursor.execute("SELECT login FROM usr WHERE login ='%s'" % userToAdd)
@@ -224,11 +207,7 @@ def addUserToFriendsList(userToAdd):
     else:
         conn.send('NO')
 
-def createChat(chatname):
-    global cursor
-    global connectedUser
-    global DBcon
-    global conn
+def createChat(chatname,DBcon,conn,cursor,connectedUser):
 
     try:
         cursor.execute("INSERT INTO chat(chatroom_name,initialsender) VALUES ('%s','%s')" % (chatname, connectedUser))
@@ -243,11 +222,8 @@ def createChat(chatname):
 
 
 
-def viewChats():
-    global cursor
-    global connectedUser
-    global DBcon
-    global conn
+def viewChats(DBcon,conn,cursor,connectedUser):
+
     try:
         cursor.execute("SELECT chatroom_name FROM chatlist WHERE member='%s'" % connectedUser)
         results = cursor.fetchall()
@@ -256,11 +232,8 @@ def viewChats():
         print 'error viewing chatlist'
         print e
 
-def deleteuser(user):
-    global cursor
-    global connectedUser
-    global DBcon
-    global conn
+def deleteuser(user,DBcon,conn,cursor,connectedUser):
+
     if user == connectedUser:
         try:
 
@@ -291,11 +264,8 @@ def deleteuser(user):
         print 'trying to delete other user'
         conn.send('NO')
 
-def joinChat(chatname):
-    global cursor
-    global connectedUser
-    global DBcon
-    global conn
+def joinChat(chatname,DBcon,conn,cursor,connectedUser):
+
     try:
         cursor.execute("SELECT chatroom_name FROM chat WHERE chatroom_name='%s'" % chatname)
         results = cursor.fetchall()
@@ -332,11 +302,8 @@ def chatForName(chatname):
         print e
         conn.send(pickle.dumps(results))
 
-def membersForChatname(chatname):
-    global cursor
-    global connectedUser
-    global DBcon
-    global conn
+def membersForChatname(chatname,DBcon,conn,cursor,connectedUser):
+
     results = []
     try:
         cursor.execute("SELECT member FROM chatlist WHERE chatroom_name='%s'" % chatname)
@@ -352,11 +319,8 @@ def membersForChatname(chatname):
         print e
         conn.send(pickle.dumps(results))
 
-def getInfoForUser(username):
-    global cursor
-    global connectedUser
-    global DBcon
-    global conn
+def getInfoForUser(username,DBcon,conn,cursor,connectedUser):
+
     results = []
     try:
         cursor.execute("SELECT * FROM usr WHERE login ='%s'" % username)
@@ -388,8 +352,8 @@ if __name__=='__main__':
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     # Bind the socket to the port
-    server_address = ('0.0.0.0', 7908)
-    #server_address = ('192.168.1.72', 7908)
+    #server_address = ('0.0.0.0', 7908)
+    server_address = ('localhost', 7908)
 
     print >>sys.stderr, 'starting up on %s port %s' % server_address
     sock.bind(server_address)
