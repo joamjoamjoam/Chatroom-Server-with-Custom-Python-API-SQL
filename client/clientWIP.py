@@ -196,7 +196,7 @@ app.template_path = os.path.join(BASE_DIR, "templates/")
 
 app.web_app.setMinimumWidth(500)
 app.web_app.setMinimumHeight(700)
-app.template = ("chatPage2.html", {"dont_think_this": "matters"})
+app.template = ("index2.html", {"dont_think_this": "matters"})
 app.bind(PythonAPI())
 #GUI STUFF ----------------------------------------------------------------------
 
@@ -208,5 +208,5 @@ if __name__=='__main__':
 	#server_address = ('localhost', 7908)
 	print >>sys.stderr, 'connecting to %s port %s' % server_address
 	authenticationCredentials = ["",""]
-        #sock.connect(server_address)
+        sock.connect(server_address)
    	app.start()
