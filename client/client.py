@@ -8,11 +8,14 @@ import cStringIO as StringIO
 
 sock = ""
 
-def register(user, password):
+def register(user, password, bio):
     sock.send('register')
+    sock.sleep(.3)
     sock.send(user)
     time.sleep(.3)
     sock.send(password)
+    time.sleep(.3)
+    sock.send(bio)
     accepted = sock.recv(4096)
     if accepted == 'YES':
         return True
@@ -129,6 +132,15 @@ def membersForChatname(chatname):
 
     return results
 
+def getInfoForUser(username):
+    sock.send('getinfoforuser')
+    time.sleep(.3)
+    sock.send(username)
+    results = pickle.loads(sock.recv(4096))
+
+    return results
+
+
 if __name__=='__main__':
     # Create a TCP/IP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -152,7 +164,8 @@ if __name__=='__main__':
             if choice == '1':
                 user = raw_input('login_username:')
                 password = getpass.getpass()
-                authenticated = register(user, password)
+                bio = 'sent'
+                authenticated = register(user, password, bio)
                 currentUser = user
             elif choice == '2':
                 user = raw_input('Username > ')

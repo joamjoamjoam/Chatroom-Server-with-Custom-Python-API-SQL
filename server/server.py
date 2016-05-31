@@ -27,7 +27,7 @@ def serverFunctionalCode(connection, client_address):
     conn = connection
     #setup DB Connection
     try:                        #"dbname=mydb user=postgres password=cgttewr1 host=127.0.0.1 port=5433"
-        DBcon = psycopg2.connect("dbname=mydb user=postgres password= host=127.0.0.1 port=5432")
+        DBcon = psycopg2.connect("dbname=mydb user=postgres password=cgttewr host=127.0.0.1 port=5432")
         DBcon.autocommit = True
         cursor = DBcon.cursor()
     except:
@@ -86,9 +86,14 @@ def serverFunctionalCode(connection, client_address):
             connection.close()
             return 0
         elif apiCall == 'membersforchatname':
+            print 'Retrieve member in chat request from ', client_address
             chatname = connection.recv(4096)
             membersForChatname(chatname)
             return 0
+        elif apiCall == 'getinfoforname':
+            print 'getinfo request request recieved from ', client_address
+            username = connection.recv(4096)
+            getInfoForUser(username)
         else:
             print 'Invalid Call'
 
@@ -126,15 +131,15 @@ def register():
 
     newName = conn.recv(4096)
     newPass = conn.recv(4096)
+    newbio = conn.recv(4096)
     cursor.execute("SELECT login FROM usr WHERE login ='%s'" % newName)
     results = cursor.fetchall()
     if len(results) == 0:
         try:
             cursor.execute("INSERT INTO usrlist(owner) VALUES('%s') RETURNING list_id" % newName)
             listID = cursor.fetchone()[0]
-            bio = "This is a bio."
             print 'listID = ', listID
-            cursor.execute("INSERT INTO usr(login,password,bio,friendslist) VALUES ('%s','%s','%s',%d)" % (newName, newPass,bio,listID))
+            cursor.execute("INSERT INTO usr(login,password,bio,friendslist) VALUES ('%s','%s','%s',%d)" % (newName, newPass,newbio,listID))
             conn.send('YES')
             print '%s succesfully registered' % newName
             DBcon.commit()
@@ -346,6 +351,35 @@ def membersForChatname(chatname):
         print 'error getting chatforname'
         print e
         conn.send(pickle.dumps(results))
+
+def getInfoForUser(username):
+    global cursor
+    global connectedUser
+    global DBcon
+    global conn
+    results = []
+    try:
+        cursor.execute("SELECT * FROM usr WHERE login ='%s'" % username)
+        results = cursor.fetchall()
+    except psycopg2.Error as e:
+        print 'error finding user to add to friends list'
+        print e
+
+    if len(results) > 0:
+        # add user
+        try:
+            cursor.execute("SELECT friendslist FROM usr WHERE login='%s'" % connectedUser)
+            friendsListID = cursor.fetchone()[0]
+            cursor.execute("INSERT INTO usrlist_contains(list_id,member) VALUES (%d,'%s')" %(friendsListID, userToAdd))
+            DBcon.commit()
+            conn.send("YES")
+        except psycopg2.Error as e:
+            print 'error adding to friendslist'
+            print e
+            conn.send("NO")
+    else:
+        conn.send('NO')
+
 
 
 if __name__=='__main__':
