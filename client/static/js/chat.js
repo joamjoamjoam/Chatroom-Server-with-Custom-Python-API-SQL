@@ -7,8 +7,9 @@
 
 	$(".chatinputbutton").click(function() {
 		var usertext = PythonAPI.getUsername() + "-> " + $('input[id="thetext"]').val();
-		$(".navbartitle").text("clicked");
+		var chatroom = $("#textheader").text();
 		var result = PythonAPI.createMessage(usertext, chatroom);
+		alert(usertext);
 		$('#thetext').val('');
 		if(result)
 		{
@@ -140,11 +141,11 @@
 				id = $('.room').length + 1;
 				if(id % 2 === 0)
 				{
-					$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + rooms[i] + '">' + rooms[i] + '<button type="button" class="btn btn-primary rButton" id="' + rooms[i] + '">Enter</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+					$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + rooms[i] + '">' + rooms[i] + '<div id="roomborder"></div>' + '<button type="button" class="btn btn-primary rButton" id="' + rooms[i] + '">Enter</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
 				}
 				else
 				{
-					$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + rooms[i] + '">' + rooms[i] + '<button type="button" class="btn btn-primary rButton" id="' + rooms[i] + '">Enter</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+					$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + rooms[i] + '">' + rooms[i] + '<div id="roomborder"></div>' + '<button type="button" class="btn btn-primary rButton" id="' + rooms[i] + '">Enter</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
 				}
 			}
 		}
@@ -166,11 +167,11 @@
 				var id = $('.thefriend').length + 1;
 				if(id % 2 === 0)
 				{
-					$('.thefriend:last').after('<div class="thefriend contact evenbackgroundside tempcontact" id="friend' + friends[i] + '">' + friends[i] + '<button type="button" class="btn btn-primary fButton" id="' + friends[i] + '">Message</button><button type="button" class="btn btn-primary fButtonvideo" id="' + friends[i] + '">Video</button></div>');
+					$('.thefriend:last').after('<div class="thefriend contact evenbackgroundside tempcontact" id="friend' + friends[i] + '">' + friends[i] + '<div id="roomborder"></div>' + '<button type="button" class="btn btn-primary fButton" id="' + friends[i] + '">Message</button><button type="button" class="btn btn-primary fButtonvideo" id="' + friends[i] + '">Video</button></div>');
 				}
 				else
 				{
-					$('.thefriend:last').after('<div class="thefriend contact oddbackgroundside tempcontact" id="friend' + friends[i] + '">' + friends[i] + '<button type="button" class="btn btn-primary fButton" id="' + friends[i] + '">Message</button><button type="button" class="btn btn-primary fButtonvideo" id="' + friends[i] + '">Video</button></div>');
+					$('.thefriend:last').after('<div class="thefriend contact oddbackgroundside tempcontact" id="friend' + friends[i] + '">' + friends[i] + '<div id="roomborder"></div>' + '<button type="button" class="btn btn-primary fButton" id="' + friends[i] + '">Message</button><button type="button" class="btn btn-primary fButtonvideo" id="' + friends[i] + '">Video</button></div>');
 				}
 			}
 		}
@@ -265,6 +266,33 @@
 	})
 
 
+/*	window.setInterval(function(){
+	  	var id = $("#textheader").text();
+		if(true)
+		{
+			$("#textheader").text(id);
+			$(".temptext").remove();
+			var strtext = PythonAPI.chatForName(id);
+			var texts = strtext.split('&');  //need to change to w/e delimiter
+			for(i = 0; i < texts.length; i++)
+			{
+				id = $('.chattext').length + 1;
+				if(id % 2 === 0)
+				{
+					$('.chattext:last').after('<div class="chattext evenbackgroundchat temptext">'+ texts[i] +'</div>');
+				}
+				else
+				{
+					$('.chattext:last').after('<div class="chattext oddbackgroundchat temptext">'+ texts[i] +'</div>');
+				}
+			}
+			var element = document.getElementById("textarea");
+    			element.scrollTop = element.scrollHeight;	
+		}
+	}, 5000);
+=======
+>>>>>>> e185726a7d42bd4e90dec2c501873bddbe1f4e14
 	
+*/
 
 	
