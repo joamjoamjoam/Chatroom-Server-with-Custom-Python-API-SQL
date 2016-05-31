@@ -1,3 +1,4 @@
+
 .space{
   width:50%;
   background-color:#0059b3;
@@ -52,7 +53,7 @@
 .roomlist{
   background-color:#0059b3;
   color:#FAFAFA;
-  height:600px;
+  height:865px;
   overflow: auto;
 }
 
@@ -89,7 +90,7 @@
 .contactslist{
   background-color:#0059b3;
   color:#FAFAFA;
-  height:600px;
+  height:865px;
   overflow: auto;
 }
 
@@ -129,10 +130,11 @@
 }
 
 .chatwrapper{
-  height:100%;
+  height: 100%;
   position:relative;
   top: 2px;
-  background-color:orange;
+  bottom: 0;
+  background-color:#00b386;
 }
 
 .chatheaderwrapper{
@@ -145,7 +147,7 @@
 }
 
 .chattextwrapper{
-  height:535px;
+  min-height:805px; /*535 px original */
   background-color:#ccffe6;
   overflow:auto;
 }
