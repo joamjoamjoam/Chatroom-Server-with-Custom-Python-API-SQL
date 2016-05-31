@@ -7,7 +7,7 @@
 
 	$(".chatinputbutton").click(function() {
 		var usertext = PythonAPI.getUsername() + "-> " + $('input[id="thetext"]').val();
-		var chatroom = $("#textheader").text();
+		$(".navbartitle").text("clicked");
 		var result = PythonAPI.createMessage(usertext, chatroom);
 		$('#thetext').val('');
 		if(result)
@@ -57,13 +57,58 @@
     			element.scrollTop = element.scrollHeight;	
 		}
 	});
-	
+
+	$(".friendlist").on('click', '.fButton', function () {
+		var roomName = this.id;
+		var user = PythonAPI.getUsername();
+		var ids = [];
+		ids.push(roomName);
+		ids.push(user);
+		ids.sort();
+		roomName = ids.join("");
+		var result = PythonAPI.createChat(roomName);
+		if(result)
+		{
+			var id = $('.room').length + 1;
+			if(id % 2 === 0)
+			{
+				$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+			}
+			else
+			{
+				$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+			}
+		}
+		else
+		{
+			if(true)
+			{
+				$("#textheader").text(roomName);
+				$(".temptext").remove();
+				var strtext = PythonAPI.chatForName(roomName);
+				var texts = strtext.split('&');  //need to change to w/e delimiter
+				for(i = 0; i < texts.length; i++)
+				{
+					id = $('.chattext').length + 1;
+					if(id % 2 === 0)
+					{
+						$('.chattext:last').after('<div class="chattext evenbackgroundchat temptext">'+ texts[i] +'</div>');
+					}
+					else
+					{
+						$('.chattext:last').after('<div class="chattext oddbackgroundchat temptext">'+ texts[i] +'</div>');
+					}
+				}
+				var element = document.getElementById("textarea");
+	    			element.scrollTop = element.scrollHeight;	
+			}
+		}
+	});
 	
 
 	$(".friendlist").on('click', '.fButtonvideo', function () {
-		$("#videowrapper").css({"display":"block"});
-		$("#chatwrapper").css({"display":"none"});
-
+		$(".videowrapper").css({"display":"block"});
+		$(".chatwrapper").css({"display":"none"});
 		var id = this.id;
 		var video_out = document.getElementById("vid-box");
 		var phone = window.phone = PHONE({
@@ -80,8 +125,8 @@
 	});
 	
 	$("#closevideo").click(function() {
-		$("#videowrapper").css({"display":"none"});
-		$("#chatwrapper").css({"display":"block"});
+		$(".videowrapper").css({"display":"none"});
+		$(".chatwrapper").css({"display":"block"});
 	});
 	
 	$("#showroomwrapper").click(function() {
@@ -118,7 +163,7 @@
 		{
 			for(i = 0; i < friends.length; i++)
 			{
-				id = $('.thefriend').length + 1;
+				var id = $('.thefriend').length + 1;
 				if(id % 2 === 0)
 				{
 					$('.thefriend:last').after('<div class="thefriend contact evenbackgroundside tempcontact" id="friend' + friends[i] + '">' + friends[i] + '<div id="roomborder"></div>' + '<button type="button" class="btn btn-primary fButton" id="' + friends[i] + '">Message</button><button type="button" class="btn btn-primary fButtonvideo" id="' + friends[i] + '">Video</button></div>');
@@ -140,7 +185,7 @@
 		var roomName = $('input[id="room-name"]').val();
 		var result = PythonAPI.createChat(roomName);
 		if(result) {
-			id = $('.room').length + 1;
+			var id = $('.room').length + 1;
 			if(id % 2 === 0)
 			{
 				$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
@@ -160,7 +205,7 @@
 		var roomName = $('input[id="room-name"]').val();
 		var result = PythonAPI.joinChat(roomName);
 		if(result) {
-			id = $('.room').length + 1;
+			var id = $('.room').length + 1;
 			if(id % 2 === 0)
 			{
 				$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
@@ -219,25 +264,6 @@
 	  modal.find('.contact-modal-title').text('Add Contact');
 	})
 
-	function updateRooms() {
-            var strrooms = PythonAPI.viewChats();
-	    var rooms = strrooms.split(',');
-		if(rooms[0] != "")
-		{
-			for(i = 0; i < rooms.length; i++)
-			{
-				id = $('.room').length + 1;
-				if(id % 2 === 0)
-				{
-					$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + rooms[i] + '">' + rooms[i] + '<button type="button" class="btn btn-primary rButton" id="' + rooms[i] + '">Enter</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
-				}
-				else
-				{
-					$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + rooms[i] + '">' + rooms[i] + '<button type="button" class="btn btn-primary rButton" id="' + rooms[i] + '">Enter</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
-				}
-			}
-		}
-        }
 
 /*	window.setInterval(function(){
 	  	var id = $("#textheader").text();
@@ -263,6 +289,8 @@
     			element.scrollTop = element.scrollHeight;	
 		}
 	}, 5000);
+=======
+>>>>>>> e185726a7d42bd4e90dec2c501873bddbe1f4e14
 	
 */
 
