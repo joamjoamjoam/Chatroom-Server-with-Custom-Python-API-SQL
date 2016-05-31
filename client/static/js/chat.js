@@ -1,3 +1,9 @@
+	$("#thetext").keyup(function(event){
+		if(event.keyCode == 13) {
+			$(".chatinputbutton").click();
+		}
+	});
+	
 	$(".chatinputbutton").click(function() {
 		var usertext = PythonAPI.getUsername() + ": " + $('input[id="thetext"]').val();
 		var chatroom = $("#textheader").text();
