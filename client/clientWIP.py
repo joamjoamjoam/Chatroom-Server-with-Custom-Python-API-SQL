@@ -148,7 +148,7 @@ class PythonAPI(htmlPy.Object):
 	    sock.send(chatname)
 
 	    results = pickle.loads(sock.recv(4096))
-	    sresult = '&'.join(str(d[0]) for d in results)
+	    sresult = '&'.join(str(d[1]) for d in results)
 	    return sresult
 
 
@@ -204,8 +204,8 @@ if __name__=='__main__':
 	# Create a TCP/IP socket
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	# Connect the socket to the port where the server is listening
-#	server_address = ('107.194.132.45', 7908)
-	server_address = ('localhost', 7908)
+	server_address = ('107.194.132.45', 7908)
+	#server_address = ('localhost', 7908)
 	print >>sys.stderr, 'connecting to %s port %s' % server_address
 	authenticationCredentials = ["",""]
         sock.connect(server_address)
