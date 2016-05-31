@@ -7,10 +7,6 @@ import cPickle as pickle
 import datetime
 import cStringIO as StringIO
 
-connectedUser = ""
-cursor = ""
-DBcon = ""
-conn = ""
 
 #create messages and get messages for chat
 #edit profiles
@@ -160,13 +156,14 @@ def login(DBcon,conn,cursor):
     except psycopg2.Error as e:
         print 'error running select query for login'
         print e
-        return ''
     if len(results) > 0 and results[0][0] == tmpPassword:
+        print 'here'
         authenticated = True
         return tmpUser
         conn.send('YES')
 
     else:
+        print 'wrong'
         conn.send('NO')
         return ''
 
