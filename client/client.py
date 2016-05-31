@@ -117,6 +117,7 @@ def createMessage(text,chatname):
     sock.send('createmessage')
     time.sleep(.3)
     sock.send(text)
+    time.sleep(.3)
     sock.send(chatname)
 
     if sock.recv(4096) == 'YES':

@@ -61,6 +61,7 @@ class PythonAPI(htmlPy.Object):
 	    global globalusername
 	    sock.send('login')
 	    #check credentials and disconnect if not correct
+	    time.sleep(.3)
 	    sock.sendto(user, server_address)
 	    time.sleep(.3)
 	    sock.sendto(password, server_address)
@@ -87,6 +88,7 @@ class PythonAPI(htmlPy.Object):
 	@htmlPy.Slot(str, result=bool)
 	def addUserToFriendsList(self, userToAdd):
 	    sock.send("addtofriendslist")
+		time.sleep(.3)
 	    sock.send(userToAdd)
 	    accepted = sock.recv(4096)
 	    if accepted == 'YES':
@@ -118,6 +120,7 @@ class PythonAPI(htmlPy.Object):
 	@htmlPy.Slot(str, result=bool)
 	def deleteUser(self, userToDelete):
 	    sock.send('deleteuser')
+		time.sleep(.3)
 	    sock.send(userToDelete)
 	    response = sock.recv(4096)
 	    if response == 'YES':
@@ -153,6 +156,7 @@ class PythonAPI(htmlPy.Object):
 	    sock.send('createmessage')
 	    time.sleep(.3)
 	    sock.send(text)
+		time.sleep(.3)
 	    sock.send(chatname)
 
 	    if sock.recv(4096) == 'YES':
