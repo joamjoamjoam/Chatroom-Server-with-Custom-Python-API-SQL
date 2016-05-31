@@ -92,7 +92,7 @@ def serverFunctionalCode(connection, client_address):
         else:
             print 'Invalid Call'
 
-def createMessage(text, chatname,DBcon,conn,cursor):
+def createMessage(text, chatname,DBcon,conn,cursor,connectedUser):
 
     timestamp = datetime.datetime.now()
     try:
@@ -167,7 +167,7 @@ def login(DBcon,conn,cursor):
         conn.send('NO')
         return ''
 
-def logout(DBcon,conn,cursor):
+def logout(DBcon,conn,cursor,connectedUser):
     return ""
 
 def viewFriendsList(DBcon,conn,cursor,connectedUser):
@@ -282,11 +282,8 @@ def joinChat(chatname,DBcon,conn,cursor,connectedUser):
         print e
         conn.send('NO')
 
-def chatForName(chatname):
-    global cursor
-    global connectedUser
-    global DBcon
-    global conn
+def chatForName(chatname,DBcon,conn,cursor,connectedUser):
+    
     results = []
     try:
         cursor.execute("SELECT * FROM message WHERE chatroom_name='%s'" % chatname)
@@ -352,8 +349,8 @@ if __name__=='__main__':
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     # Bind the socket to the port
-    #server_address = ('0.0.0.0', 7908)
-    server_address = ('localhost', 7908)
+    server_address = ('0.0.0.0', 7908)
+    #server_address = ('localhost', 7908)
 
     print >>sys.stderr, 'starting up on %s port %s' % server_address
     sock.bind(server_address)
