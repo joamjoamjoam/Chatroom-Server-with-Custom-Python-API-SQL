@@ -19,15 +19,14 @@
 		}
 		else
 		{
-			//need error for message failure
+			alert("Message failed to send.");
 		}
 			
 	});
 
 	$(".roomlist").on('click', '.rButton', function () {
 		var id = this.id;
-		var result = PythonAPI.joinChat(id);
-		if(result)
+		if(true)
 		{
 			$("#textheader").text(id);
 			$(".temptext").remove();
@@ -47,10 +46,6 @@
 			}
 			var element = document.getElementById("textarea");
     			element.scrollTop = element.scrollHeight;	
-		}
-		else
-		{
-			//need error for join failure
 		}
 	});
 
@@ -106,6 +101,17 @@
 		var roomName = $('input[id="room-name"]').val();
 		var result = PythonAPI.createChat(roomName);
 		if(result) {
+			$("#roomModal").modal('hide');
+		}
+		else {
+			$(".roommodalerror").text("Room Creation Failed.");
+		}
+	});
+
+	$("#joinRoom").click(function() {
+		var roomName = $('input[id="room-name"]').val();
+		var result = PythonAPI.joinChat(roomName);
+		if(result) {
 			id = $('.room').length + 1;
 			if(id % 2 === 0)
 			{
@@ -114,10 +120,11 @@
 			else
 			{
 				$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button></div>');
-			}	
+			}
+			$("#roomModal").modal('hide');
 		}
 		else{
-			//need error handling for room creation failure
+			$(".roommodalerror").text("Room Join Failed.");
 		}
 	});	
 
@@ -134,9 +141,10 @@
 			{
 				$('.thefriend:last').after('<div class="thefriend contact oddbackgroundside tempcontact" id="friend' + friendName + '">' + friendName + '<button type="button" class="btn btn-primary fButton" id="' + friendName + '">Whatever</button></div>');
 			}
+			$("#contactModal").modal('hide');
 		}
 		else {
-			//need error handling for friend rejection
+			$(".contactmodalerror").text("Friend Creation Failed.");
 		}
 	});
 
@@ -150,12 +158,14 @@
 	});
 	
 	$('#roomModal').on('show.bs.modal', function (event) {
+	  $(".roommodalerror").text("Looking good!");
 	  var button = $(event.relatedTarget); // Button that triggered the modal
 	  var modal = $(this);
-	  modal.find('.room-modal-title').text('Create Room');
+	  modal.find('.room-modal-title').text('Create/Join Room');
 	})
 
 	$('#contactModal').on('show.bs.modal', function (event) {
+	  $(".contactmodalerror").text("Looking good!");
 	  var button = $(event.relatedTarget); // Button that triggered the modal
 	  var modal = $(this);
 	  modal.find('.contact-modal-title').text('Add Contact');

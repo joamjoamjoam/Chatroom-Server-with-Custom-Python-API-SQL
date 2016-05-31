@@ -55,6 +55,7 @@ class PythonAPI(htmlPy.Object):
 
 	@htmlPy.Slot(str, str, result=bool)
 	def login(self, user, password):
+	    global globalusername
 	    sock.send('login')
 	    #check credentials and disconnect if not correct
 	    sock.sendto(user, server_address)
