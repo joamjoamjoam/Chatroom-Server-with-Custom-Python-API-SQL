@@ -159,8 +159,8 @@ def login(DBcon,conn,cursor):
     if len(results) > 0 and results[0][0] == tmpPassword:
         print 'here'
         authenticated = True
-        return tmpUser
         conn.send('YES')
+        return tmpUser
 
     else:
         print 'wrong'
