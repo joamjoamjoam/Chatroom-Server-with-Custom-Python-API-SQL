@@ -31,7 +31,7 @@
 			$("#textheader").text(id);
 			$(".temptext").remove();
 			var strtext = PythonAPI.chatForName(id);
-			var texts = strtext.split(',');  //need to change to w/e delimiter
+			var texts = strtext.split('&');  //need to change to w/e delimiter
 			for(i = 0; i < texts.length; i++)
 			{
 				id = $('.chattext').length + 1;
