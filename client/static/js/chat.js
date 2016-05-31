@@ -9,6 +9,7 @@
 		var chatroom = $("#textheader").text();
 		var result = PythonAPI.createMessage(usertext, chatroom);
 		result = true;
+		$('#thetext').val('');
 		if(result)
 		{
 			id = $('.chattext').length + 1;
