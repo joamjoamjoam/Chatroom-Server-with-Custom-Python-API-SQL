@@ -31,6 +31,8 @@
 			
 	});
 
+	
+
 	$(".roomlist").on('click', '.rButton', function () {
 		var id = this.id;
 		if(true)
@@ -55,6 +57,8 @@
     			element.scrollTop = element.scrollHeight;	
 		}
 	});
+	
+	
 
 	$(".friendlist").on('click', '.fButtonvideo', function () {
 		$("#videowrapper").css({"display":"block"});
@@ -81,6 +85,7 @@
 	});
 	
 	$("#showroomwrapper").click(function() {
+		$(".temprm").remove();
 		var strrooms = PythonAPI.viewChats();
 		var rooms = strrooms.split(',');
 		if(rooms[0] != "")
@@ -106,6 +111,7 @@
 	});
 
 	$("#showcontactwrapper").click(function() {
+		$(".tempcontact").remove();
 		var strfriends = PythonAPI.viewFriendsList();
 		var friends = strfriends.split(',');
 		if(friends[0] != "")
@@ -232,7 +238,31 @@
 			}
 		}
         }
-        window.onload = updateRooms;
+
+	window.setInterval(function(){
+	  	var id = $("#textheader").text();
+		if(true)
+		{
+			$("#textheader").text(id);
+			$(".temptext").remove();
+			var strtext = PythonAPI.chatForName(id);
+			var texts = strtext.split('&');  //need to change to w/e delimiter
+			for(i = 0; i < texts.length; i++)
+			{
+				id = $('.chattext').length + 1;
+				if(id % 2 === 0)
+				{
+					$('.chattext:last').after('<div class="chattext evenbackgroundchat temptext">'+ texts[i] +'</div>');
+				}
+				else
+				{
+					$('.chattext:last').after('<div class="chattext oddbackgroundchat temptext">'+ texts[i] +'</div>');
+				}
+			}
+			var element = document.getElementById("textarea");
+    			element.scrollTop = element.scrollHeight;	
+		}
+	}, 5000);
 	
 
 	
