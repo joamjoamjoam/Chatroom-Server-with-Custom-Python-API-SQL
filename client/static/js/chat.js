@@ -1,9 +1,16 @@
 
+	$("#thetext").keyup(function(event){
+		if(event.keyCode == 13) {
+			$(".chatinputbutton").click();
+		}
+	});
+
 	$(".chatinputbutton").click(function() {
 		var usertext = PythonAPI.getUsername() + ": " + $('input[id="thetext"]').val();
 		var chatroom = $("#textheader").text();
 		var result = PythonAPI.createMessage(usertext, chatroom);
 		result = true;
+		$('#thetext').val('');
 		if(result)
 		{
 			id = $('.chattext').length + 1;

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CS 180 Chat App</title>
+
+    <!-- Bootstrap -->
+    <link href="{{ 'css/bootstrap.min.css'|staticfile }}" rel="stylesheet">
+	<!--<link href="{{ 'css/chat.css'|staticfile }}" rel="stylesheet"> -->
+	<link href="{{ 'css/navigation.css'|staticfile }}" rel="stylesheet">
+	<link href="{{ 'css/style2.css'|staticfile }}"  rel="stylesheet">
+	<link href="{{ 'css/font-awesome.min.css'|staticfile }}"  rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+<style type="text/css">
+   body { background: #B2EED5 !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+</style>
+
+<body>
+    <div class="big-wrapper" id="bigWrapper">
+	<!--NAV BAR ==================================================-->
+	<div class="navigation">
+		<nav class="navbar navbar-inverse">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbarbrand"><i class="fa fa-commenting fa-2x" aria-hidden="true"></i></a>
+		      <a class="navbartitle">Babblr</a>
+		    </div>
+		    <ul class="nav navbar-nav navbar-right">
+		      <li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">You
+			<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+			  <li><a href="PythonAPI.logout" id="link" data-bind="true">Logout</a></li>
+			</ul>
+		      </li>
+		      <li class="nav-divider"></li>
+		      <li><a href="#"><span class="fa fa-envelope"></span></a></li>
+		    </ul>
+		  </div>
+		</nav>
+	</div>
+	<!--NAV BAR ==================================================-->
+
+	<!--MOST OF THE STUFF ==================================================-->
+	<div class="bottomcontainer">
+	  <div class="row no-gutter">
+	    <!-- CHAT AREA==================================================-->
+	    <div class="col-lg-8">
+	      <div class="chatwrapper">
+		<div class="chatheaderwrapper" id="textheader">GeneralChat
+		</div>
+		<div class="chattextwrapper" id="textarea">
+			<div class="chattext dontshow"></div>
+		</div>
+		<div class="chatinputwrapper">
+			<div class="input-group">
+			      <input type="text" class="form-control chatinputbox" id="thetext" placeholder="Type Something...">
+			      <span class="input-group-btn">
+				<button class="btn btn-default chatinputbutton" type="button" id="sendhit">Send!</button>
+			      </span>
+			</div><!-- /input-group -->
+		</div>
+	      </div>
+	    </div>
+	    <!-- CHAT AREA==================================================-->
+
+
+	    <!-- SIDEBAR AREA==================================================-->
+	    <div class="col-lg-4">
+	      <div class="sidewrapper">
+		<div class="tabbuttons">
+		  <div class="row no-gutter">
+			  <div class="col-sm-6">
+				<a href=# id="showroomwrapper">
+					<div class="roombutton nav nav-tabs" id="roomtab">Rooms
+					</div>
+				</a>
+			  </div>
+			  <div class="col-sm-6">
+				<a href=# id="showcontactwrapper">
+					<div class="contactbutton nav nav-tabs" id="contacttab">Contacts
+					</div>
+				</a>
+			  </div>
+		  </div>
+	        </div>
+                <div class="roomwrapper" id="room-wrapper">
+			<div class="roomlist" id= "roomlist">
+				<div class="room dontshow"></div>
+			</div>
+			<a href=# value= "Add Room" id="addRoom" data-toggle="modal" data-target="#roomModal">
+				<div class="addroom">Add Room</div>
+			</a>
+		</div>
+	      </div>
+		<div class="contactswrapper" id="contacts-wrapper">
+			<div class="contactslist" id= "contacts-list">
+				<!-- this is where the room divs spawn-->
+				<div class="friendlist" id="friendList">
+					<div class="friendheader" id="friend-header">Friend List</div>
+					<div class="contact thefriend dontshow"></div>
+				</div>
+				<div class="blocklist" id="blockList">
+					<div class="contact theblock dontshow"></div>
+				</div>
+			</div>
+			<a href=# value= "Friend/Block Contact" id="addContact" data-toggle="modal" data-target="#contactModal">
+				<div class="addcontact">Add Contact
+			
+				</div>
+			</a>
+	        </div>
+	      </div>
+            <!-- SIDEBAR AREA==================================================-->
+	  </div>
+	</div>
+	<!--MOST OF THE STUFF  ==================================================-->
+
+	<!--modal for adding rooms  ==================================================-->
+	<div class="roomModalWrapper">
+	  <div class="modal fade" id="roomModal" tabindex="-1" role="dialog" aria-labelledby="roomModalLabel" aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	      <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		  <h4 class="modal-title room-modal-title" id="exampleModalLabel">Create Room</h4>
+		</div>
+		<div class="modal-body">
+		  <form>
+		    <div class="form-group">
+		      <label for="room-name" class="form-control-label">Room Name:</label>
+		      <input type="text" class="form-control" id="room-name">
+		    </div>
+		  </form>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-primary" id="createRoom">Create Room </button>
+		</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!--modal for adding rooms  ==================================================-->
+
+
+	<!--modal for adding contacts  ==================================================-->
+	<div class="contactModalWrapper">
+	  <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	      <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		  <h4 class="modal-title contact-modal-title" id="contactModalLabel">Add Contact</h4>
+		</div>
+		<div class="modal-body">
+		  <form>
+		    <div class="form-group">
+		      <label for="room-name" class="form-control-label">Contact:</label>
+		      <input type="text" class="form-control" id="contact-name">
+		    </div>
+		  </form>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-primary" id="createFriend">Add Contact</button>
+		</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!--modal for adding contacts  ==================================================-->
+
+	
+    </div>
+</body>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ 'js/bootstrap.min.js'|staticfile }}"></script>
+	<script src="{{ 'js/chat.js'|staticfile }}"></script>
+	<script src="{{ 'js/docs.js'|staticfile }}"></script>
+  </body>
+</html>

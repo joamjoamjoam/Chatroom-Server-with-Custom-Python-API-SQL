@@ -1,8 +1,4 @@
 
-<div class="videowrapper">
-		<video autoplay></video>
-	      </div>
-
 .videowrapper{
   display: none;
 }
@@ -67,7 +63,7 @@ video {
 .roomlist{
   background-color:#0059b3;
   color:#FAFAFA;
-  height:600px;
+  height:865px;
   overflow: auto;
 }
 
@@ -104,7 +100,7 @@ video {
 .contactslist{
   background-color:#0059b3;
   color:#FAFAFA;
-  height:600px;
+  height:865px;
   overflow: auto;
 }
 
@@ -144,11 +140,12 @@ video {
 }
 
 .chatwrapper{
-  height:100%;
+  height: 100%;
   position:relative;
   top: 2px;
-  background-color:orange;
   display: block;
+  bottom: 0;
+  background-color:#00b386;
 }
 
 .chatheaderwrapper{
@@ -161,7 +158,7 @@ video {
 }
 
 .chattextwrapper{
-  height:535px;
+  min-height:805px; /*535 px original */
   background-color:#ccffe6;
   overflow:auto;
 }
