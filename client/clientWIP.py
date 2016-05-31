@@ -78,11 +78,11 @@ class PythonAPI(htmlPy.Object):
 
 	@htmlPy.Slot(result=str)
 	def viewFriendsList(self):
-	    sock.send("viewfriendslist")
+	    sock.send('viewfriendslist')
 	    #view friends list
 	    pickledString = sock.recv(4096)
 	    result = pickle.loads(pickledString)
-	    sresult = ",".join(result)
+	    sresult = ','.join(str(d[0]) for d in result)
 	    return sresult
 
 	@htmlPy.Slot(str, result=bool)
@@ -94,6 +94,7 @@ class PythonAPI(htmlPy.Object):
 	    if accepted == 'YES':
 		return True
 	    else:
+		print 'adding friend error.'
 		return False
 
 	@htmlPy.Slot(str, result=bool)
@@ -147,7 +148,7 @@ class PythonAPI(htmlPy.Object):
 	    sock.send(chatname)
 
 	    results = pickle.loads(sock.recv(4096))
-	    sresult = "&".join(results)
+	    sresult = '&'.join(str(d[0]) for d in result)
 	    return sresult
 
 
@@ -174,7 +175,7 @@ class PythonAPI(htmlPy.Object):
 	    time.sleep(.3)
 	    sock.send(chatname)
 	    results = pickle.loads(sock.recv(4096))
-	    sresult = ",".join(results)
+	    sresult = '&'.join(str(d[0]) for d in results)
 	    return sresult
 
 
