@@ -1,3 +1,18 @@
+
+<div class="videowrapper">
+		<video autoplay></video>
+	      </div>
+
+.videowrapper{
+  display: none;
+}
+
+video {
+  height:25em;
+  position:relative;
+  left:15%;
+}
+
 .space{
   width:50%;
   background-color:#0059b3;
@@ -133,6 +148,7 @@
   position:relative;
   top: 2px;
   background-color:orange;
+  display: block;
 }
 
 .chatheaderwrapper{
@@ -212,6 +228,7 @@
 .dontshow{
   display:none;
 }
+
 
 .row.no-gutter {
 
