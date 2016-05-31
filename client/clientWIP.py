@@ -148,7 +148,7 @@ class PythonAPI(htmlPy.Object):
 	    sock.send(chatname)
 
 	    results = pickle.loads(sock.recv(4096))
-	    sresult = '&'.join(str(d[0]) for d in result)
+	    sresult = '&'.join(str(d[0]) for d in results)
 	    return sresult
 
 
