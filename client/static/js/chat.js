@@ -213,6 +213,27 @@
 	  var modal = $(this);
 	  modal.find('.contact-modal-title').text('Add Contact');
 	})
+
+	function updateRooms() {
+            var strrooms = PythonAPI.viewChats();
+	    var rooms = strrooms.split(',');
+		if(rooms[0] != "")
+		{
+			for(i = 0; i < rooms.length; i++)
+			{
+				id = $('.room').length + 1;
+				if(id % 2 === 0)
+				{
+					$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + rooms[i] + '">' + rooms[i] + '<button type="button" class="btn btn-primary rButton" id="' + rooms[i] + '">Enter</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+				}
+				else
+				{
+					$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + rooms[i] + '">' + rooms[i] + '<button type="button" class="btn btn-primary rButton" id="' + rooms[i] + '">Enter</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+				}
+			}
+		}
+        }
+        window.onload = updateRooms;
 	
 
 	

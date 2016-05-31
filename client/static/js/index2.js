@@ -26,3 +26,7 @@ $(".register_submit").click(function() {
 		$(".register_error").html("Registration Failed!");
 	}
 });
+
+$(".exitbutton").click(function() {
+	PythonAPI.disconnect();
+});

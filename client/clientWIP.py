@@ -53,6 +53,7 @@ class PythonAPI(htmlPy.Object):
 	def disconnect(self):
 	    sock.send('exit')
 	    sock.close()
+	    app.stop()
 	    print 'Succesfully Disconnected'
 
 	@htmlPy.Slot(str, str, result=bool)
@@ -111,7 +112,7 @@ class PythonAPI(htmlPy.Object):
 	def viewChats(self):
 	    sock.send('viewchats')
 	    chatIDs = pickle.loads(sock.recv(4096))
-	    sresult = ','.join(chatIDs)
+	    sresult = ','.join(str(d) for d in chatIDs)
 	    return sresult
 
 	@htmlPy.Slot(str, result=bool)
