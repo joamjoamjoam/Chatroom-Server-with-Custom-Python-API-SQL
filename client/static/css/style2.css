@@ -1,4 +1,14 @@
 
+.videowrapper{
+  display: none;
+}
+
+video {
+  height:25em;
+  position:relative;
+  left:15%;
+}
+
 .space{
   width:50%;
   background-color:#0059b3;
@@ -133,6 +143,7 @@
   height: 100%;
   position:relative;
   top: 2px;
+  display: block;
   bottom: 0;
   background-color:#00b386;
 }
@@ -214,6 +225,7 @@
 .dontshow{
   display:none;
 }
+
 
 .row.no-gutter {
 

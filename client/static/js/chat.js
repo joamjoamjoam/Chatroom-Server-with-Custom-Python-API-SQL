@@ -1,9 +1,10 @@
+
 	$("#thetext").keyup(function(event){
 		if(event.keyCode == 13) {
 			$(".chatinputbutton").click();
 		}
 	});
-	
+
 	$(".chatinputbutton").click(function() {
 		var usertext = PythonAPI.getUsername() + ": " + $('input[id="thetext"]').val();
 		var chatroom = $("#textheader").text();
@@ -56,23 +57,46 @@
 		}
 	});
 
-	$(".friendlist").on('click', '.fButton', function () {
+	$(".friendlist").on('click', '.fButtonvideo', function () {
+		$("#videowrapper").css({"display":"block"});
+		$("#chatwrapper").css({"display":"none"});
+
 		var id = this.id;
+		var video_out = document.getElementById("vid-box");
+		var phone = window.phone = PHONE({
+			number : 	id || "Anonymous",
+			publish_key: 	'pub-c-9f6b82fb-e88c-4623-bdc8-b4a07aa7825b',
+			subscribe_key:	'sub-c-78ca4800-2710-11e6-a01f-0619f8945a4f',
+		});
+		phone.ready(function(){ form.username.style.background="#55ff5b"; });
+		phone.receive(function(session){
+			session.connected(function(session) { video_out.appendChild(session.video); });
+			session.ended(function(session) { video_out.innerHTML=''; });
+		});
+		phone.dial(id);
+	});
+	
+	$("#closevideo").click(function() {
+		$("#videowrapper").css({"display":"none"});
+		$("#chatwrapper").css({"display":"block"});
 	});
 	
 	$("#showroomwrapper").click(function() {
 		var strrooms = PythonAPI.viewChats();
 		var rooms = strrooms.split(',');
-		for(i = 0; i < rooms.length; i++)
+		if(rooms[0] != "")
 		{
-			id = $('.room').length + 1;
-			if(id % 2 === 0)
+			for(i = 0; i < rooms.length; i++)
 			{
-				$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + rooms[i] + '">' + rooms[i] + '<button type="button" class="btn btn-primary rButton" id="' + rooms[i] + '">Enter</button></div>');
-			}
-			else
-			{
-				$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + rooms[i] + '">' + rooms[i] + '<button type="button" class="btn btn-primary rButton" id="' + rooms[i] + '">Enter</button></div>');
+				id = $('.room').length + 1;
+				if(id % 2 === 0)
+				{
+					$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + rooms[i] + '">' + rooms[i] + '<button type="button" class="btn btn-primary rButton" id="' + rooms[i] + '">Enter</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+				}
+				else
+				{
+					$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + rooms[i] + '">' + rooms[i] + '<button type="button" class="btn btn-primary rButton" id="' + rooms[i] + '">Enter</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+				}
 			}
 		}
 		$(".tempcontact").remove();
@@ -85,16 +109,19 @@
 	$("#showcontactwrapper").click(function() {
 		var strfriends = PythonAPI.viewFriendsList();
 		var friends = strfriends.split(',');
-		for(i = 0; i < friends.length; i++)
+		if(friends[0] != "")
 		{
-			id = $('.thefriend').length + 1;
-			if(id % 2 === 0)
+			for(i = 0; i < friends.length; i++)
 			{
-				$('.thefriend:last').after('<div class="thefriend contact evenbackgroundside tempcontact" id="friend' + friends[i] + '">' + friends[i] + '<button type="button" class="btn btn-primary fButton" id="' + friends[i] + '">Whatever</button></div>');
-			}
-			else
-			{
-				$('.thefriend:last').after('<div class="thefriend contact oddbackgroundside tempcontact" id="friend' + friends[i] + '">' + friends[i] + '<button type="button" class="btn btn-primary fButton" id="' + friends[i] + '">Whatever</button></div>');
+				id = $('.thefriend').length + 1;
+				if(id % 2 === 0)
+				{
+					$('.thefriend:last').after('<div class="thefriend contact evenbackgroundside tempcontact" id="friend' + friends[i] + '">' + friends[i] + '<button type="button" class="btn btn-primary fButton" id="' + friends[i] + '">Message</button><button type="button" class="btn btn-primary fButtonvideo" id="' + friends[i] + '">Video</button></div>');
+				}
+				else
+				{
+					$('.thefriend:last').after('<div class="thefriend contact oddbackgroundside tempcontact" id="friend' + friends[i] + '">' + friends[i] + '<button type="button" class="btn btn-primary fButton" id="' + friends[i] + '">Message</button><button type="button" class="btn btn-primary fButtonvideo" id="' + friends[i] + '">Video</button></div>');
+				}
 			}
 		}
 		$(".temprm").remove();
@@ -122,11 +149,11 @@
 			id = $('.room').length + 1;
 			if(id % 2 === 0)
 			{
-				$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button></div>');
+				$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
 			}
 			else
 			{
-				$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button></div>');
+				$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
 			}
 			$("#roomModal").modal('hide');
 		}
@@ -142,11 +169,11 @@
 			id = $('.thefriend').length + 1;
 			if(id % 2 === 0)
 			{
-				$('.thefriend:last').after('<div class="thefriend contact evenbackgroundside tempcontact" id="friend' + friendName + '">' + friendName + '<button type="button" class="btn btn-primary fButton" id="' + friendName + '">Whatever</button></div>');
+				$('.thefriend:last').after('<div class="thefriend contact evenbackgroundside tempcontact" id="friend' + friendName + '">' + friendName + '<button type="button" class="btn btn-primary fButton" id="' + friendName + '">Message</button><button type="button" class="btn btn-primary fButtonvideo" id="' + friends[i] + '">Video</button></div>');
 			}
 			else
 			{
-				$('.thefriend:last').after('<div class="thefriend contact oddbackgroundside tempcontact" id="friend' + friendName + '">' + friendName + '<button type="button" class="btn btn-primary fButton" id="' + friendName + '">Whatever</button></div>');
+				$('.thefriend:last').after('<div class="thefriend contact oddbackgroundside tempcontact" id="friend' + friendName + '">' + friendName + '<button type="button" class="btn btn-primary fButton" id="' + friendName + '">Message</button><button type="button" class="btn btn-primary fButtonvideo" id="' + friends[i] + '">Video</button></div>');
 			}
 			$("#contactModal").modal('hide');
 		}

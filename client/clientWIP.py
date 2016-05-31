@@ -162,7 +162,7 @@ class PythonAPI(htmlPy.Object):
 		return globalusername
 
 	@htmlPy.Slot(result=str)
-	def membersForChatname(chatname):
+	def membersForChatname(self, chatname):
 	    sock.send('membersforchatname')
 	    time.sleep(.3)
 	    sock.send(chatname)
