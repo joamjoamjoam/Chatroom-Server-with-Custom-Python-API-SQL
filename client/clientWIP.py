@@ -55,6 +55,7 @@ class PythonAPI(htmlPy.Object):
 
 	@htmlPy.Slot(str, str, result=bool)
 	def login(self, user, password):
+	    global globalusername
 	    sock.send('login')
 	    #check credentials and disconnect if not correct
 	    sock.sendto(user, server_address)
@@ -77,7 +78,8 @@ class PythonAPI(htmlPy.Object):
 	    #view friends list
 	    pickledString = sock.recv(4096)
 	    result = pickle.loads(pickledString)
-	    return result
+	    sresult = ",".join(result)
+	    return sresult
 
 	@htmlPy.Slot(str, result=bool)
 	def addUserToFriendsList(self, userToAdd):
@@ -107,7 +109,8 @@ class PythonAPI(htmlPy.Object):
 	def viewChats(self):
 	    sock.send('viewchats')
 	    chatIDs = pickle.loads(sock.recv(4096))
-	    return chatIDs
+	    sresult = ",".join(chatIDs)
+	    return sresult
 
 	@htmlPy.Slot(str, result=bool)
 	def deleteUser(self, userToDelete):
@@ -138,7 +141,8 @@ class PythonAPI(htmlPy.Object):
 	    sock.send(chatname)
 
 	    results = pickle.loads(sock.recv(4096))
-	    return results
+	    sresult = "&".join(results)
+	    return sresult
 
 
 	@htmlPy.Slot(str, str, result=bool)
@@ -156,6 +160,15 @@ class PythonAPI(htmlPy.Object):
 	@htmlPy.Slot(result=str)
 	def getUsername(self):
 		return globalusername
+
+	@htmlPy.Slot(result=str)
+	def membersForChatname(chatname):
+	    sock.send('membersforchatname')
+	    time.sleep(.3)
+	    sock.send(chatname)
+	    results = pickle.loads(sock.recv(4096))
+	    sresult = ",".join(results)
+	    return sresult
 
 
 #GUI STUFF ----------------------------------------------------------------------

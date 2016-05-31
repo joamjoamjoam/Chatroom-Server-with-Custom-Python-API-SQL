@@ -99,7 +99,7 @@
 				<div class="room dontshow"></div>
 			</div>
 			<a href=# value= "Add Room" id="addRoom" data-toggle="modal" data-target="#roomModal">
-				<div class="addroom">Add Room</div>
+				<div class="addroom">Create/Join Room</div>
 			</a>
 		</div>
 	      </div>
@@ -143,11 +143,13 @@
 		      <label for="room-name" class="form-control-label">Room Name:</label>
 		      <input type="text" class="form-control" id="room-name">
 		    </div>
+		    <div class="roommodalerror">Looking Good</div>
 		  </form>
 		</div>
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 		  <button type="button" class="btn btn-primary" id="createRoom">Create Room </button>
+		  <button type="button" class="btn btn-primary" id="joinRoom">Join Room </button>
 		</div>
 	      </div>
 	    </div>
@@ -173,6 +175,7 @@
 		      <label for="room-name" class="form-control-label">Contact:</label>
 		      <input type="text" class="form-control" id="contact-name">
 		    </div>
+		    <div class="contactmodalerror">Looking Good</div>
 		  </form>
 		</div>
 		<div class="modal-footer">
