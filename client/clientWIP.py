@@ -112,7 +112,7 @@ class PythonAPI(htmlPy.Object):
 	def viewChats(self):
 	    sock.send('viewchats')
 	    chatIDs = pickle.loads(sock.recv(4096))
-	    sresult = ','.join(str(d) for d in chatIDs)
+	    sresult = ','.join(str(d[0]) for d in chatIDs)
 	    return sresult
 
 	@htmlPy.Slot(str, result=bool)
@@ -138,7 +138,7 @@ class PythonAPI(htmlPy.Object):
 
 	@htmlPy.Slot(str, result=str)
 	def chatForName(self, chatname):
-		
+	    print chatname
 	    sock.send('chatforname')
 	    time.sleep(.3)
 	    sock.send(chatname)
@@ -153,6 +153,7 @@ class PythonAPI(htmlPy.Object):
 	    sock.send('createmessage')
 	    time.sleep(.3)
 	    sock.send(text)
+	    time.sleep(.3)
 	    sock.send(chatname)
 
 	    if sock.recv(4096) == 'YES':
