@@ -135,6 +135,15 @@
 		var roomName = $('input[id="room-name"]').val();
 		var result = PythonAPI.createChat(roomName);
 		if(result) {
+			id = $('.room').length + 1;
+			if(id % 2 === 0)
+			{
+				$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+			}
+			else
+			{
+				$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+			}
 			$("#roomModal").modal('hide');
 		}
 		else {

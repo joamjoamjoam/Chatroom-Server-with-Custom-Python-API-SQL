@@ -26,14 +26,16 @@ class PythonAPI(htmlPy.Object):
 	    print argB
 	    return "hello!"
 
-	@htmlPy.Slot(str, str, result=bool)
-	def register(self, user, password):
+	@htmlPy.Slot(str, str, str, result=bool)
+	def register(self, user, password, bio):
 	    sock.send('register')
+	    time.sleep(.3)
 	    sock.send(user)
 	    time.sleep(.3)
 	    sock.send(password)
+	    time.sleep(.3)
+	    sock.send(bio)
 	    accepted = sock.recv(4096)
-
 	    if accepted == 'YES':
 		return True
 	    else:
@@ -109,7 +111,7 @@ class PythonAPI(htmlPy.Object):
 	def viewChats(self):
 	    sock.send('viewchats')
 	    chatIDs = pickle.loads(sock.recv(4096))
-	    sresult = ",".join(chatIDs)
+	    sresult = ','.join(chatIDs)
 	    return sresult
 
 	@htmlPy.Slot(str, result=bool)
@@ -194,8 +196,8 @@ if __name__=='__main__':
 	# Create a TCP/IP socket
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	# Connect the socket to the port where the server is listening
-	#server_address = ('107.194.132.45', 7908)
-	server_address = ('localhost', 7908)
+	server_address = ('107.194.132.45', 7908)
+	#server_address = ('localhost', 7908)
 	print >>sys.stderr, 'connecting to %s port %s' % server_address
 	authenticationCredentials = ["",""]
         sock.connect(server_address)
