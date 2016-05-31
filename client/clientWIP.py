@@ -87,8 +87,8 @@ class PythonAPI(htmlPy.Object):
 
 	@htmlPy.Slot(str, result=bool)
 	def addUserToFriendsList(self, userToAdd):
-	    sock.send("addtofriendslist")
-		time.sleep(.3)
+	    sock.send('addtofriendslist')
+	    time.sleep(.3)
 	    sock.send(userToAdd)
 	    accepted = sock.recv(4096)
 	    if accepted == 'YES':
@@ -120,7 +120,7 @@ class PythonAPI(htmlPy.Object):
 	@htmlPy.Slot(str, result=bool)
 	def deleteUser(self, userToDelete):
 	    sock.send('deleteuser')
-		time.sleep(.3)
+	    time.sleep(.3)
 	    sock.send(userToDelete)
 	    response = sock.recv(4096)
 	    if response == 'YES':
