@@ -121,7 +121,10 @@
 			session.connected(function(session) { video_out.appendChild(session.video); });
 			session.ended(function(session) { video_out.innerHTML=''; });
 		});
-		phone.dial(id);
+	});
+
+	$("#openvideo").click(function() {
+		phone.dial('ron20');
 	});
 	
 	$("#closevideo").click(function() {
