@@ -72,11 +72,11 @@
 			var id = $('.room').length + 1;
 			if(id % 2 === 0)
 			{
-				$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+				$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '" data-toggle="modal" data-target="listModal">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
 			}
 			else
 			{
-				$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+				$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '" data-toggle="modal" data-target="listModal">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
 			}
 		}
 		else
@@ -140,11 +140,11 @@
 				id = $('.room').length + 1;
 				if(id % 2 === 0)
 				{
-					$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + rooms[i] + '">' + rooms[i] + '<div id="roomborder"></div>' + '<button type="button" class="btn btn-primary rButton" id="' + rooms[i] + '">Enter</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+					$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + rooms[i] + '">' + rooms[i] + '<div id="roomborder"></div>' + '<button type="button" class="btn btn-primary rButton" id="' + rooms[i] + '">Enter</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '" data-toggle="modal" data-target="listModal">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
 				}
 				else
 				{
-					$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + rooms[i] + '">' + rooms[i] + '<div id="roomborder"></div>' + '<button type="button" class="btn btn-primary rButton" id="' + rooms[i] + '">Enter</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+					$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + rooms[i] + '">' + rooms[i] + '<div id="roomborder"></div>' + '<button type="button" class="btn btn-primary rButton" id="' + rooms[i] + '">Enter</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '" data-toggle="modal" data-target="listModal">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
 				}
 			}
 		}
@@ -188,11 +188,11 @@
 			var id = $('.room').length + 1;
 			if(id % 2 === 0)
 			{
-				$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+				$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '" data-toggle="modal" data-target="listModal">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
 			}
 			else
 			{
-				$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+				$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '" data-toggle="modal" data-target="listModal">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
 			}
 			$("#roomModal").modal('hide');
 		}
@@ -208,11 +208,11 @@
 			var id = $('.room').length + 1;
 			if(id % 2 === 0)
 			{
-				$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+				$('.room:last').after('<div class="room evenbackgroundside temprm" id="room"' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '" data-toggle="modal" data-target="listModal">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
 			}
 			else
 			{
-				$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
+				$('.room:last').after('<div class="room oddbackgroundside temprm" id="room' + roomName + '">' + roomName + '<button type="button" class="btn btn-primary rButton" id="' + roomName + '">Join</button><button type="button" class="btn btn-primary rButtonshow" id="' + rooms[i] + '" data-toggle="modal" data-target="listModal">Show</button><button type="button" class="btn btn-primary rButtonleave" id="' + rooms[i] + '">Leave</button></div>');
 			}
 			$("#roomModal").modal('hide');
 		}
@@ -263,9 +263,18 @@
 	  var modal = $(this);
 	  modal.find('.contact-modal-title').text('Add Contact');
 	})
+	
+	$('#listModal').on('show.bs.modal', function (event) {
+	  var chatroom = $("#textheader").text();
+	  var memlist = PythonAPI.membersForChatname(chatroom);
+	  $(".listmodalerror").text(memlist);
+	  var button = $(event.relatedTarget); // Button that triggered the modal
+	  var modal = $(this);
+	  modal.find('.room-modal-title').text(chatroom);
+	})
 
 
-/*	window.setInterval(function(){
+	window.setInterval(function(){
 	  	var id = $("#textheader").text();
 		if(true)
 		{
@@ -288,10 +297,6 @@
 			var element = document.getElementById("textarea");
     			element.scrollTop = element.scrollHeight;	
 		}
-	}, 5000);
-=======
->>>>>>> e185726a7d42bd4e90dec2c501873bddbe1f4e14
-	
-*/
+	}, 500);
 
 	

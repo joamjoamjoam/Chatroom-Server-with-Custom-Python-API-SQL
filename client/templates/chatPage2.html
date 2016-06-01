@@ -44,7 +44,7 @@
 			</ul>
 		      </li>
 		      <li class="nav-divider"></li>
-		      <li><a href="#" class="fButtonvide"><span class="fa fa-envelope"></span></a></li>
+		      <li><a href="#" data-toggle="modal" data-target="listModal class="fButtonvide"><span class="fa fa-envelope"></span></a></li>
 		    </ul>
 		  </div>
 		</nav>
@@ -189,6 +189,27 @@
 	  </div>
 	</div>
 	<!--modal for adding contacts  ==================================================-->
+
+	<!--modal chatroom names ==================================================-->
+	<div class="listModalWrapper">
+	  <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="listModalLabel" aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	      <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		  <h4 class="modal-title contact-modal-title" id="listModalLabel">Room List</h4>
+		</div>
+		<div class="modal-body">
+		    <div class="listmodalerror">Looking Good</div>
+		</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!--modal for adding contacts  ==================================================-->
+
 
 	
     </div>
