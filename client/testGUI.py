@@ -18,7 +18,7 @@ app.web_app.setMinimumWidth(1024)
 app.web_app.setMinimumHeight(768)
 
 # Binding of back-end functionalities with GUI
-app.template = ("chatPage2.html", {"username": "htmlPy_user"})
+app.template = ("index2.html", {"username": "htmlPy_user"})
 
 
 

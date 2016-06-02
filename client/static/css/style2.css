@@ -119,7 +119,7 @@
 }
 
 .contactswrapper{
-  background-color:#0066cc;
+  background-color:#0059b3;
   height:100%;
   display: none;
 }
@@ -138,6 +138,11 @@
   text-align:center;
   vertical-align:middle;
   line-height:60px;
+}
+
+.addcontact:hover {
+	background: #d9dee3;
+	color: #000;
 }
 
 .contact{
