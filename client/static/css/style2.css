@@ -44,13 +44,18 @@
   line-height:40px;
 }
 
+.roundtemplate {
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
 .tabbuttons{
   height:40px;
   background-color:black;
 }
 
 .roomwrapper{
-  background-color:blue;
+  background-color:#0059b3;
   height:100%;
   display: block;
 }
@@ -69,6 +74,11 @@
   text-align:center;
   vertical-align:middle;
   line-height:60px;
+}
+
+.addroom:hover {
+	background: #d9dee3;
+	color: #000;
 }
 
 .room{
@@ -186,7 +196,7 @@
   height:100px;
   position:relative;
   bottom: 2px;
-  background-color:#00cc66;
+  background-color: #00b386/*#00cc66;*/
 }
 
 .navbarbrand{
